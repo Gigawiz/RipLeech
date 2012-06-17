@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual C# Express 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TubeRip", "TubeRip\TubeRip.csproj", "{A3DAC3F9-35D5-440C-B48C-59CB39F49C97}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ripify Installer", "..\TubeRip Installer\Ripify Installer\Ripify Installer.csproj", "{B6A6B670-06B6-4541-A8FE-C17046D45B8B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -13,6 +15,10 @@ Global
 		{A3DAC3F9-35D5-440C-B48C-59CB39F49C97}.Debug|x86.Build.0 = Debug|x86
 		{A3DAC3F9-35D5-440C-B48C-59CB39F49C97}.Release|x86.ActiveCfg = Release|x86
 		{A3DAC3F9-35D5-440C-B48C-59CB39F49C97}.Release|x86.Build.0 = Release|x86
+		{B6A6B670-06B6-4541-A8FE-C17046D45B8B}.Debug|x86.ActiveCfg = Debug|x86
+		{B6A6B670-06B6-4541-A8FE-C17046D45B8B}.Debug|x86.Build.0 = Debug|x86
+		{B6A6B670-06B6-4541-A8FE-C17046D45B8B}.Release|x86.ActiveCfg = Release|x86
+		{B6A6B670-06B6-4541-A8FE-C17046D45B8B}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

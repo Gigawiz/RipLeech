@@ -6,12 +6,12 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("TubeRip")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("TubeRip allows you to download youtube videos in mp3 or mp4 format.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Lyriz Coding")]
 [assembly: AssemblyProduct("TubeRip")]
-[assembly: AssemblyCopyright("Copyright ©  2012")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCopyright("Copyright ©DjLyriz 2012")]
+[assembly: AssemblyTrademark("TubeRip")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 

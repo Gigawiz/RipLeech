@@ -22,5 +22,17 @@ namespace TubeRip.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UpdateAvail {
+            get {
+                return ((bool)(this["UpdateAvail"]));
+            }
+            set {
+                this["UpdateAvail"] = value;
+            }
+        }
     }
 }

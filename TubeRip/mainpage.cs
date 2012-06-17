@@ -11,6 +11,8 @@ using Google.GData.Extensions;
 using Google.GData.YouTube;
 using Google.GData.Extensions.MediaRss;
 using Google.YouTube;
+using System.Net;
+using System.IO;
 
 
 
@@ -124,7 +126,7 @@ namespace TubeRip
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            label1.Text = "Status: Loading Video";
+            label5.Text = "Related Videos:";
             getstuff(textBox1.Text);
         }
         private void webBrowser1_Navigating(object sender, WebBrowserNavigatingEventArgs e)
@@ -168,6 +170,79 @@ namespace TubeRip
         private void listView1_ItemActivate_1(object sender, EventArgs e)
         {
             getstuff(listView1.FocusedItem.SubItems[3].Text);
+        }
+
+        private void mainpage_Load(object sender, EventArgs e)
+        {
+            if (TubeRip.Properties.Settings.Default.UpdateAvail == true)
+            {
+                var result = MessageBox.Show("There is an update available for TubeRip! Would you like to download it now?", "Update Available", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (result == DialogResult.Yes)
+                {
+                    updater update = new updater();
+                    update.Show();
+                }
+            }
+            if (File.Exists("updater.exe"))
+            {
+                File.Delete("updater.exe");
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            label5.Text = "Search Results:"; 
+            listView1.Items.Clear();
+            YouTubeRequest request = new YouTubeRequest(settings);
+            YouTubeQuery query = new YouTubeQuery(YouTubeQuery.DefaultVideoUri);
+
+            if (!String.IsNullOrEmpty(textBox2.Text) || (textBox2.Text != "Enter"))
+            {
+                AtomCategory category1 = new AtomCategory(textBox2.Text, YouTubeNameTable.KeywordSchema);
+                query.Categories.Add(new QueryCategory(category1));
+            }
+            else if ((textBox3.Text != "") || (textBox3.Text != "Up To"))
+            {
+                AtomCategory category1 = new AtomCategory(textBox2.Text, YouTubeNameTable.KeywordSchema);
+                query.Categories.Add(new QueryCategory(category1));
+                AtomCategory category2 = new AtomCategory(textBox3.Text, YouTubeNameTable.KeywordSchema);
+                query.Categories.Add(new QueryCategory(category2));
+            }
+            else if ((textBox4.Text != "") || (textBox4.Text != "4 Search"))
+            {
+                AtomCategory category1 = new AtomCategory(textBox2.Text, YouTubeNameTable.KeywordSchema);
+                query.Categories.Add(new QueryCategory(category1));
+                AtomCategory category2 = new AtomCategory(textBox3.Text, YouTubeNameTable.KeywordSchema);
+                query.Categories.Add(new QueryCategory(category2));
+                AtomCategory category3 = new AtomCategory(textBox4.Text, YouTubeNameTable.KeywordSchema);
+                query.Categories.Add(new QueryCategory(category3));
+            }
+            else if ((textBox5.Text != "") || (textBox5.Text != "Terms Here"))
+            {
+                AtomCategory category1 = new AtomCategory(textBox2.Text, YouTubeNameTable.KeywordSchema);
+                query.Categories.Add(new QueryCategory(category1));
+                AtomCategory category2 = new AtomCategory(textBox3.Text, YouTubeNameTable.KeywordSchema);
+                query.Categories.Add(new QueryCategory(category2));
+                AtomCategory category3 = new AtomCategory(textBox4.Text, YouTubeNameTable.KeywordSchema);
+                query.Categories.Add(new QueryCategory(category3));
+                AtomCategory category4 = new AtomCategory(textBox5.Text, YouTubeNameTable.KeywordSchema);
+                query.Categories.Add(new QueryCategory(category4));
+            }
+            else
+            {
+                MessageBox.Show("Please enter at least one search term!");
+            }
+
+            Feed<Video> videoFeed = request.Get<Video>(query);
+            printVideoFeed(videoFeed);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            string filetowrite = Directory.GetCurrentDirectory() + "\\source.txt";
+            StreamWriter SW = new StreamWriter(filetowrite);
+            SW.Write("fail");
+            SW.Close();
         }
     }
 }
