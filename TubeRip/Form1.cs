@@ -20,7 +20,6 @@ namespace TubeRip
         private void Form1_Load(object sender, EventArgs e)
         {
             timer1.Start();
-            getupdates();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -41,13 +40,6 @@ namespace TubeRip
             {
                 timer3.Start();
             }
-        }
-        private void end()
-        {
-            timer7.Stop();
-            mainpage home = new mainpage();
-            home.Show();
-            this.Dispose(false);
         }
 
         private void timer3_Tick(object sender, EventArgs e)
@@ -118,7 +110,8 @@ namespace TubeRip
             }
             else
             {
-                end();
+                timer7.Stop();
+                getupdates();
             }
         }
         private void getupdates()
@@ -131,22 +124,35 @@ namespace TubeRip
                 System.IO.StreamReader sr = new System.IO.StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("windows-1252"));
                 string update = sr.ReadToEnd();
                 int build = Convert.ToInt32(update);
-                int thisbuild = 3;
+                int thisbuild = 4;
                 if (build > thisbuild)
                 {
                     label2.Visible = true;
-                    TubeRip.Properties.Settings.Default.UpdateAvail = true;
+                    var result = MessageBox.Show("There is an update available for TubeRip! Would you like to download it now?", "Update Available", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    if (result == DialogResult.Yes)
+                    {
+                        updater updater = new updater();
+                        updater.Show();
+                        this.Dispose(false);
+                    }
                 }
                 else
                 {
                     label2.Visible = false;
-                    TubeRip.Properties.Settings.Default.UpdateAvail = false;
+                    mainpage home = new mainpage();
+                    home.Show();
+                    this.Dispose(false);
                 }
             }
             catch
             {
                 MessageBox.Show("Unable to connect to update server! Please try again later.");
             }
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Environment.Exit(0);
         }
 
     }

@@ -25,7 +25,7 @@ namespace TubeRip
     {
         string viddling = "";
         string vidout = "";
-        Stopwatch sw = new Stopwatch();
+        string mp4out = "";
         YouTubeRequestSettings settings = new YouTubeRequestSettings("TubeRip", "AI39si5SxBrG0x12TqlsrGpnsoCcqgV9-diBgRS5xOhcDB01sSH6WVSTJjhlQenMSt4qH_UC87Y8kqYaf4Ykgw-poTZ7yF2zDw");
         public mainpage()
         {
@@ -49,17 +49,38 @@ namespace TubeRip
                  * We'll work with them in the video and audio download examples.
                  */
                 IEnumerable<VideoInfo> videoInfos = DownloadUrlResolver.GetDownloadUrls(link);
-                VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.HighDefinition720);
-                viddling = video.Title + video.VideoExtension;
-                label11.Text = video.Title + "(720p)";
-                vidout = video.Title + ".mp3";
-                WebClient client = new WebClient();
-                string saveto = Directory.GetCurrentDirectory() + @"\Downloads\Temp\" + video.Title + video.VideoExtension;
-                client.Encoding = System.Text.Encoding.UTF8;
-                Uri update = new Uri(video.DownloadUrl);
-                client.DownloadFileAsync(update, saveto);
-                client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
-                client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
+                try
+                {
+                    VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.HighDefinition720);
+                    mp4out = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + ".mp4";
+                    label11.Text = video.Title;
+                    label17.Text = "720p";
+                    WebClient client = new WebClient();
+                    string saveto = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + video.VideoExtension;
+                    vidout = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + @"\" + video.Title + ".mp3";
+                    viddling = saveto;
+                    client.Encoding = System.Text.Encoding.UTF8;
+                    Uri update = new Uri(video.DownloadUrl);
+                    client.DownloadFileAsync(update, saveto);
+                    client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
+                    client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
+                }
+                catch
+                {
+                    VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.Standard360);
+                    mp4out = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + ".mp4";
+                    label11.Text = video.Title;
+                    label17.Text = "360p";
+                    WebClient client = new WebClient();
+                    string saveto = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + video.VideoExtension;
+                    vidout = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + @"\" + video.Title + ".mp3";
+                    viddling = saveto;
+                    client.Encoding = System.Text.Encoding.UTF8;
+                    Uri update = new Uri(video.DownloadUrl);
+                    client.DownloadFileAsync(update, saveto);
+                    client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
+                    client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
+                }
             }
             else
             {
@@ -70,38 +91,64 @@ namespace TubeRip
         {
             if (radioButton1.Checked == true)
             {
-                File.Move(Directory.GetCurrentDirectory() + @"\Downloads\Temp\" + viddling, Directory.GetCurrentDirectory() + @"\Downloads\Video\" + viddling);
+                if (!viddling.Contains("flv"))
+                {
+                    label1.Text = "Status: Ready";
+                }
+                else
+                {
+                    this.Cursor = Cursors.WaitCursor;
+                    ProcessStartInfo psi = new ProcessStartInfo();
+                    string startdir = Application.StartupPath;
+                    if (Environment.Is64BitOperatingSystem)
+                    {
+                        psi.FileName = startdir + @"\Data\ffmpeg-64.exe";
+                    }
+                    else
+                    {
+                        psi.FileName = startdir + @"\Data\ffmpeg-32.exe";
+                    }
+                    string convert = viddling;
+                    psi.Arguments = string.Format("-i \"{0}\" -y -sameq -ar 22050 \"{1}\"", viddling, mp4out);
+                    psi.WindowStyle = ProcessWindowStyle.Normal;
+                    Process p = Process.Start(psi);
+                    p.WaitForExit();
+                    if (p.HasExited == true)
+                    {
+                        this.Cursor = Cursors.Default;
+                        File.Delete(viddling);
+                    }
+                }
             }
             else if (radioButton2.Checked == true)
             {
                 ProcessStartInfo psi = new ProcessStartInfo();
+                string startdir = Application.StartupPath;
                 if (Environment.Is64BitOperatingSystem)
                 {
-                    psi.FileName = Directory.GetCurrentDirectory() + @"\Data\ffmpeg-64.exe";
+                    psi.FileName = startdir + @"\Data\ffmpeg-64.exe";
                 }
                 else
                 {
-                    psi.FileName = Directory.GetCurrentDirectory() + @"\Data\ffmpeg-32.exe";
+                    psi.FileName = startdir + @"\Data\ffmpeg-32.exe";
                 }
-                string convert = Directory.GetCurrentDirectory() + @"\Downloads\Temp\" + viddling;
-                string converted = Directory.GetCurrentDirectory() + @"\Downloads\Audio\" + vidout;
-                psi.Arguments = string.Format("-i \"{0}\" -vn -f mp3 -ab 192k \"{1}\"", convert, converted);
+                string convert = viddling;
+                string bitrate = TubeRip.Properties.Settings.Default.audioquality;
+                psi.Arguments = string.Format("-i \"{0}\" -vn -y -f mp3 -ab {2}k \"{1}\"", viddling, vidout, bitrate);
                 psi.WindowStyle = ProcessWindowStyle.Normal;
                 Process p = Process.Start(psi);
                 p.WaitForExit();
                 if (p.HasExited == true)
                 {
                     //this.Cursor = Cursors.Default;
-                    File.Delete(Directory.GetCurrentDirectory() + @"\Downloads\Temp\" + viddling);
-                    MessageBox.Show("All Done!");
+                    File.Delete(viddling);
+                    //MessageBox.Show("All Done!");
                 }
             }
             else
             {
 
             }
-            //sw.Stop();
-            //sw.Reset();
             if (timer1.Enabled == true)
             {
                 timer1.Stop();
@@ -130,81 +177,18 @@ namespace TubeRip
 
         public void printVideoEntry(Video video)
         {
-            listBox1.Items.Add("Title: " + video.Title);
-            listBox1.Items.Add(video.Description);
-            listBox1.Items.Add("Keywords: " + video.Keywords);
-            listBox1.Items.Add("Uploaded by: " + video.Uploader);
-            if (video.YouTubeEntry.Location != null)
-            {
-                listBox1.Items.Add("Latitude: " + video.YouTubeEntry.Location.Latitude);
-                listBox1.Items.Add("Longitude: " + video.YouTubeEntry.Location.Longitude);
-            }
+            textBox6.Text = video.Description;
             if (video.Media != null && video.Media.Rating != null)
             {
-                listBox1.Items.Add("Restricted in: " + video.Media.Rating.Country);
-            }
-
-            if (video.IsDraft)
-            {
-                listBox1.Items.Add("Video is not live.");
-                string stateName = video.Status.Name;
-                if (stateName == "processing")
-                {
-                    listBox1.Items.Add("Video is still being processed.");
-                }
-                else if (stateName == "rejected")
-                {
-                    listBox1.Items.Add("Video has been rejected because: ");
-                    listBox1.Items.Add(video.Status.Value);
-                    listBox1.Items.Add("For help visit: ");
-                    listBox1.Items.Add(video.Status.Help);
-                }
-                else if (stateName == "failed")
-                {
-                    listBox1.Items.Add("Video failed uploading because:");
-                    listBox1.Items.Add(video.Status.Value);
-
-                    listBox1.Items.Add("For help visit: ");
-                    listBox1.Items.Add(video.Status.Help);
-                }
-
-                if (video.ReadOnly == false)
-                {
-                    listBox1.Items.Add("Video is editable by the current user.");
-                }
-
-                if (video.RatingAverage != -1)
-                {
-                    listBox1.Items.Add("Average rating: " + video.RatingAverage);
-                }
-                if (video.ViewCount != -1)
-                {
-                    listBox1.Items.Add("View count: " + video.ViewCount);
-                }
-
-                listBox1.Items.Add("Thumbnails:");
-                foreach (MediaThumbnail thumbnail in video.Thumbnails)
-                {
-                    listBox1.Items.Add("\tThumbnail URL: " + thumbnail.Url);
-                    listBox1.Items.Add("\tThumbnail time index: " + thumbnail.Time);
-                }
-
-                listBox1.Items.Add("Media:");
-                foreach (Google.GData.YouTube.MediaContent mediaContent in video.Contents)
-                {
-                    listBox1.Items.Add("\tMedia Location: " + mediaContent.Url);
-                    listBox1.Items.Add("\tMedia Type: " + mediaContent.Format);
-                    listBox1.Items.Add("\tDuration: " + mediaContent.Duration);
-                }
+                textBox6.Text = video.Description + "\r\n Restricted in: " + video.Media.Rating.Country.ToString();
             }
         }
         private void getstuff(string videoid)
         {
-            webBrowser1.Navigate("http://youtube.com/v/" + videoid);
+            webBrowser1.Navigate("http://youtube.com/v/" + videoid + "&hd=1");
             YouTubeRequest request = new YouTubeRequest(settings);
             try
             {
-                listBox1.Items.Clear();
                 Uri videoEntryUrl = new Uri("http://gdata.youtube.com/feeds/api/videos/" + videoid);
                 Video video = request.Retrieve<Video>(videoEntryUrl);
                 Feed<Video> relatedVideos = request.GetRelatedVideos(video);
@@ -219,6 +203,7 @@ namespace TubeRip
         private void button2_Click(object sender, EventArgs e)
         {
             label5.Text = "Related Videos:";
+            listView1.Items.Clear();
             getstuff(textBox1.Text);
         }
         private void webBrowser1_Navigating(object sender, WebBrowserNavigatingEventArgs e)
@@ -256,36 +241,22 @@ namespace TubeRip
         }
         private void listView1_ItemActivate(object sender, EventArgs e)
         {
-            getstuff(listView1.FocusedItem.SubItems[3].Text);
-            textBox1.Text = listView1.FocusedItem.SubItems[3].Text;
+            string focused = listView1.FocusedItem.SubItems[3].Text;
+            listView1.Items.Clear();
+            getstuff(focused);
+            textBox1.Text = focused;
         }
 
         private void listView1_ItemActivate_1(object sender, EventArgs e)
         {
-            getstuff(listView1.FocusedItem.SubItems[3].Text);
-            textBox1.Text = listView1.FocusedItem.SubItems[3].Text;
+            string focused = listView1.FocusedItem.SubItems[3].Text;
+            listView1.Items.Clear();
+            getstuff(focused);
+            textBox1.Text = focused;
         }
 
         private void mainpage_Load(object sender, EventArgs e)
         {
-            string folders = Directory.GetCurrentDirectory() + @"\Downloads";
-            DirectoryInfo dir = new DirectoryInfo(folders);
-            if (!dir.Exists)
-            {
-                Directory.CreateDirectory(folders);
-                Directory.CreateDirectory(folders + @"\Audio");
-                Directory.CreateDirectory(folders + @"\Video");
-                Directory.CreateDirectory(folders + @"\Temp");
-            }
-            if (TubeRip.Properties.Settings.Default.UpdateAvail == true)
-            {
-                var result = MessageBox.Show("There is an update available for TubeRip! Would you like to download it now?", "Update Available", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                if (result == DialogResult.Yes)
-                {
-                    updater update = new updater();
-                    update.Show();
-                }
-            }
             if (File.Exists("updater.exe"))
             {
                 File.Delete("updater.exe");
@@ -349,8 +320,7 @@ namespace TubeRip
                 if (info.Length > 0)
                 {
                     int length = Convert.ToInt32(info.Length / 1000);
-                    int speed = length / Convert.ToInt32(sw.Elapsed.TotalSeconds);
-                    label13.Text = Convert.ToString(speed) + " kb/s";
+                    //label13.Text = Convert.ToString(speed) + " kb/s";
                 }
                 else
                 {
@@ -367,15 +337,166 @@ namespace TubeRip
 
         private void button4_Click(object sender, EventArgs e)
         {
-            if (viddling.Contains("mp4"))
+            if (radioButton1.Checked == true)
             {
-                Process.Start(Directory.GetCurrentDirectory() + @"\Downloads\Video");
+                Process.Start(viddling);
+            }
+            else if (viddling.Contains("flv"))
+            {
+                Process.Start(mp4out);
             }
             else
             {
-                Process.Start(Directory.GetCurrentDirectory() + @"\Downloads\Audio");
+                Process.Start(vidout);
             }
         }
-        
+
+        private void preferencesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            preferences prefs = new preferences();
+            prefs.Show();
+        }
+
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Environment.Exit(0);
+        }
+
+        private void mP4ToMP3ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog OFLV = new OpenFileDialog();
+            OFLV.Title = "Choose an MP4 File to Convert!";
+            OFLV.Filter = "	MPEG-4 Video|*.mp4";
+            DialogResult result = OFLV.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                SaveFileDialog SMP3 = new SaveFileDialog();
+                SMP3.Title = "Name the converted MP3 File";
+                SMP3.Filter = "MP3 Format Sound|*.mp3";
+                DialogResult saveresult = SMP3.ShowDialog();
+                if (saveresult == DialogResult.OK)
+                {
+                    ProcessStartInfo psi = new ProcessStartInfo();
+                    string startdir = Application.StartupPath;
+                    if (Environment.Is64BitOperatingSystem)
+                    {
+                        psi.FileName = startdir + @"\Data\ffmpeg-64.exe";
+                    }
+                    else
+                    {
+                        psi.FileName = startdir + @"\Data\ffmpeg-32.exe";
+                    }
+                    string convert = viddling;
+                    string bitrate = "320";
+                    psi.Arguments = string.Format("-i \"{0}\" -vn -y -f mp3 -ab {2}k \"{1}\"", OFLV.FileName, SMP3.FileName, bitrate);
+                    psi.WindowStyle = ProcessWindowStyle.Normal;
+                    Process p = Process.Start(psi);
+                    p.WaitForExit();
+                    if (p.HasExited == true)
+                    {
+                        MessageBox.Show("Conversion Complete!");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Conversion Canceled!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Conversion Canceled!");
+            }
+        }
+
+        private void fLVToMP4ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog OFLV = new OpenFileDialog();
+            OFLV.Title = "Choose a FLV File to Convert!";
+            OFLV.Filter = "Flash Video|*.flv";
+            DialogResult result = OFLV.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                SaveFileDialog SMP3 = new SaveFileDialog();
+                SMP3.Title = "Name the converted MP4 File";
+                SMP3.Filter = "MPEG-4 Video|*.mp4";
+                DialogResult saveresult = SMP3.ShowDialog();
+                if (saveresult == DialogResult.OK)
+                {
+                    ProcessStartInfo psi = new ProcessStartInfo();
+                    string startdir = Application.StartupPath;
+                    if (Environment.Is64BitOperatingSystem)
+                    {
+                        psi.FileName = startdir + @"\Data\ffmpeg-64.exe";
+                    }
+                    else
+                    {
+                        psi.FileName = startdir + @"\Data\ffmpeg-32.exe";
+                    }
+                    string convert = viddling;
+                    psi.Arguments = string.Format("-i \"{0}\" -y -sameq -ar 22050 \"{1}\"", OFLV.FileName, SMP3.FileName);
+                    psi.WindowStyle = ProcessWindowStyle.Normal;
+                    Process p = Process.Start(psi);
+                    p.WaitForExit();
+                    if (p.HasExited == true)
+                    {
+                        MessageBox.Show("Conversion Complete!");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Conversion Canceled!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Conversion Canceled!");
+            }
+        }
+
+        private void fLVToMP3ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog OFLV = new OpenFileDialog();
+            OFLV.Title = "Choose a FLV File to Convert!";
+            OFLV.Filter = "Flash Video|*.flv";
+            DialogResult result = OFLV.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                SaveFileDialog SMP3 = new SaveFileDialog();
+                SMP3.Title = "Name the converted MP3 File";
+                SMP3.Filter = "MP3 Format Sound|*.m3";
+                DialogResult saveresult = SMP3.ShowDialog();
+                if (saveresult == DialogResult.OK)
+                {
+                    ProcessStartInfo psi = new ProcessStartInfo();
+                    string startdir = Application.StartupPath;
+                    if (Environment.Is64BitOperatingSystem)
+                    {
+                        psi.FileName = startdir + @"\Data\ffmpeg-64.exe";
+                    }
+                    else
+                    {
+                        psi.FileName = startdir + @"\Data\ffmpeg-32.exe";
+                    }
+                    string convert = viddling;
+                    string bitrate = "320";
+                    psi.Arguments = string.Format("-i \"{0}\" -vn -y -f mp3 -ab {2}k \"{1}\"", OFLV.FileName, SMP3.FileName, bitrate);
+                    psi.WindowStyle = ProcessWindowStyle.Normal;
+                    Process p = Process.Start(psi);
+                    p.WaitForExit();
+                    if (p.HasExited == true)
+                    {
+                        MessageBox.Show("Conversion Complete!");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Conversion Canceled!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Conversion Canceled!");
+            }
+        }
     }
 }

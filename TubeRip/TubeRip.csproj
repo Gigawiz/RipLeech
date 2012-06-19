@@ -96,6 +96,12 @@
       <DependentUpon>mainpage.cs</DependentUpon>
     </Compile>
     <Compile Include="Mp3AudioExtractor.cs" />
+    <Compile Include="preferences.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="preferences.Designer.cs">
+      <DependentUpon>preferences.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="ProgressEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -116,6 +122,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="mainpage.resx">
       <DependentUpon>mainpage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="preferences.resx">
+      <DependentUpon>preferences.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

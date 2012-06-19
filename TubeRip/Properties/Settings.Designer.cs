@@ -25,13 +25,37 @@ namespace TubeRip.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool UpdateAvail {
+        [global::System.Configuration.DefaultSettingValueAttribute("320")]
+        public string audioquality {
             get {
-                return ((bool)(this["UpdateAvail"]));
+                return ((string)(this["audioquality"]));
             }
             set {
-                this["UpdateAvail"] = value;
+                this["audioquality"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("720")]
+        public string videoquality {
+            get {
+                return ((string)(this["videoquality"]));
+            }
+            set {
+                this["videoquality"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool updateavail {
+            get {
+                return ((bool)(this["updateavail"]));
+            }
+            set {
+                this["updateavail"] = value;
             }
         }
     }
