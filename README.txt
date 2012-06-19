@@ -1,6 +1,9 @@
 TubeRip is designed to allow you to download YouTube videos to your hard drive in mp3 or mp4 format.
 
 *Changelog*
+V2b
+Program is now out of Alpha stage, and moved into beta. Download Functions work thanks to FlagBug for his YoutubeExtractor class, and audio conversion is done using FFMPEG windows binaries. From now on, any updates will be bug fixes or gui changes/addons.
+
 V1.2a
 Added update system for better update delivery. Also started working on a search feature. 
 
