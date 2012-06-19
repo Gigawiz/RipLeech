@@ -23,7 +23,7 @@ namespace TubeRip
         {
             WebClient client = new WebClient();
             client.Encoding = System.Text.Encoding.UTF8;
-            Uri update = new Uri("http://dl.dropbox.com/u/22054429/TubeRip_Installer.exe");
+            Uri update = new Uri("https://dl.dropbox.com/u/22054429/TubeRip_Installer.exe");
             client.DownloadFileAsync(update, "update.exe");
             client.DownloadProgressChanged +=new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
             client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
