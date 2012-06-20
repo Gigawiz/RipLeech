@@ -58,5 +58,29 @@ namespace TubeRip.Properties {
                 this["updateavail"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string audiosavepath {
+            get {
+                return ((string)(this["audiosavepath"]));
+            }
+            set {
+                this["audiosavepath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string videosavepath {
+            get {
+                return ((string)(this["videosavepath"]));
+            }
+            set {
+                this["videosavepath"] = value;
+            }
+        }
     }
 }

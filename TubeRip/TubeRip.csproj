@@ -75,6 +75,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AacAudioExtractor.cs" />
+    <Compile Include="addfeats.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="addfeats.Designer.cs">
+      <DependentUpon>addfeats.cs</DependentUpon>
+    </Compile>
     <Compile Include="AudioDownloader.cs" />
     <Compile Include="BigEndianBitConverter.cs" />
     <Compile Include="BitHelper.cs" />
@@ -87,8 +93,20 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form2.Designer.cs">
+      <DependentUpon>Form2.cs</DependentUpon>
+    </Compile>
     <Compile Include="IAudioExtractor.cs" />
     <Compile Include="ListVideos.cs" />
+    <Compile Include="login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="login.Designer.cs">
+      <DependentUpon>login.cs</DependentUpon>
+    </Compile>
     <Compile Include="mainpage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,8 +135,17 @@
     <Compile Include="VideoType.cs" />
     <Compile Include="webBrowser1_DocumentCompleted.cs" />
     <Compile Include="youtube.cs" />
+    <EmbeddedResource Include="addfeats.resx">
+      <DependentUpon>addfeats.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form2.resx">
+      <DependentUpon>Form2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="login.resx">
+      <DependentUpon>login.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="mainpage.resx">
       <DependentUpon>mainpage.cs</DependentUpon>
@@ -154,6 +181,8 @@
     <None Include="Resources\tuberip.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Site_under_Construction_by_UP_AME.jpg" />
+    <None Include="Resources\bg.gif" />
     <Content Include="tuberipicon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

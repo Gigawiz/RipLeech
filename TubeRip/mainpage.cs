@@ -49,38 +49,218 @@ namespace TubeRip
                  * We'll work with them in the video and audio download examples.
                  */
                 IEnumerable<VideoInfo> videoInfos = DownloadUrlResolver.GetDownloadUrls(link);
-                try
+                #region getvideoinfo by set quality
+                if (TubeRip.Properties.Settings.Default.videoquality == "240")
                 {
-                    VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.HighDefinition720);
-                    mp4out = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + ".mp4";
-                    label11.Text = video.Title;
-                    label17.Text = "720p";
-                    WebClient client = new WebClient();
-                    string saveto = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + video.VideoExtension;
-                    vidout = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + @"\" + video.Title + ".mp3";
-                    viddling = saveto;
-                    client.Encoding = System.Text.Encoding.UTF8;
-                    Uri update = new Uri(video.DownloadUrl);
-                    client.DownloadFileAsync(update, saveto);
-                    client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
-                    client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
+                    try
+                    {
+                        VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.FlashAacLowQuality);
+                        mp4out = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + ".mp4";
+                        label11.Text = video.Title;
+                        label17.Text = "240p";
+                        WebClient client = new WebClient();
+                        string saveto = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + video.VideoExtension;
+                        vidout = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + @"\" + video.Title + ".mp3";
+                        viddling = saveto;
+                        client.Encoding = System.Text.Encoding.UTF8;
+                        Uri update = new Uri(video.DownloadUrl);
+                        client.DownloadFileAsync(update, saveto);
+                        client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
+                        client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
+                    }
+                    catch
+                    {
+                        VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.Standard360);
+                        mp4out = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + ".mp4";
+                        label11.Text = video.Title;
+                        label17.Text = "360p";
+                        WebClient client = new WebClient();
+                        string saveto = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + video.VideoExtension;
+                        vidout = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + @"\" + video.Title + ".mp3";
+                        viddling = saveto;
+                        client.Encoding = System.Text.Encoding.UTF8;
+                        Uri update = new Uri(video.DownloadUrl);
+                        client.DownloadFileAsync(update, saveto);
+                        client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
+                        client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
+                    }
                 }
-                catch
+                else if (TubeRip.Properties.Settings.Default.videoquality == "360")
                 {
-                    VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.Standard360);
-                    mp4out = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + ".mp4";
-                    label11.Text = video.Title;
-                    label17.Text = "360p";
-                    WebClient client = new WebClient();
-                    string saveto = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + video.VideoExtension;
-                    vidout = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + @"\" + video.Title + ".mp3";
-                    viddling = saveto;
-                    client.Encoding = System.Text.Encoding.UTF8;
-                    Uri update = new Uri(video.DownloadUrl);
-                    client.DownloadFileAsync(update, saveto);
-                    client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
-                    client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
+                    try
+                    {
+                        VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.Standard360);
+                        mp4out = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + ".mp4";
+                        label11.Text = video.Title;
+                        label17.Text = "360p";
+                        WebClient client = new WebClient();
+                        string saveto = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + video.VideoExtension;
+                        vidout = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + @"\" + video.Title + ".mp3";
+                        viddling = saveto;
+                        client.Encoding = System.Text.Encoding.UTF8;
+                        Uri update = new Uri(video.DownloadUrl);
+                        client.DownloadFileAsync(update, saveto);
+                        client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
+                        client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
+                    }
+                    catch
+                    {
+                        VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.Standard360);
+                        mp4out = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + ".mp4";
+                        label11.Text = video.Title;
+                        label17.Text = "360p";
+                        WebClient client = new WebClient();
+                        string saveto = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + video.VideoExtension;
+                        vidout = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + @"\" + video.Title + ".mp3";
+                        viddling = saveto;
+                        client.Encoding = System.Text.Encoding.UTF8;
+                        Uri update = new Uri(video.DownloadUrl);
+                        client.DownloadFileAsync(update, saveto);
+                        client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
+                        client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
+                    }
                 }
+                else if (TubeRip.Properties.Settings.Default.videoquality == "480")
+                {
+                    try
+                    {
+                        VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.WebM480);
+                        mp4out = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + ".mp4";
+                        label11.Text = video.Title;
+                        label17.Text = "480p";
+                        WebClient client = new WebClient();
+                        string saveto = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + video.VideoExtension;
+                        vidout = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + @"\" + video.Title + ".mp3";
+                        viddling = saveto;
+                        client.Encoding = System.Text.Encoding.UTF8;
+                        Uri update = new Uri(video.DownloadUrl);
+                        client.DownloadFileAsync(update, saveto);
+                        client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
+                        client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
+                    }
+                    catch
+                    {
+                        VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.Standard360);
+                        mp4out = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + ".mp4";
+                        label11.Text = video.Title;
+                        label17.Text = "360p";
+                        WebClient client = new WebClient();
+                        string saveto = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + video.VideoExtension;
+                        vidout = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + @"\" + video.Title + ".mp3";
+                        viddling = saveto;
+                        client.Encoding = System.Text.Encoding.UTF8;
+                        Uri update = new Uri(video.DownloadUrl);
+                        client.DownloadFileAsync(update, saveto);
+                        client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
+                        client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
+                    }
+                }
+                else if (TubeRip.Properties.Settings.Default.videoquality == "720")
+                {
+                    try
+                    {
+                        VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.HighDefinition720);
+                        mp4out = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + ".mp4";
+                        label11.Text = video.Title;
+                        label17.Text = "720p";
+                        WebClient client = new WebClient();
+                        string saveto = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + video.VideoExtension;
+                        vidout = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + @"\" + video.Title + ".mp3";
+                        viddling = saveto;
+                        client.Encoding = System.Text.Encoding.UTF8;
+                        Uri update = new Uri(video.DownloadUrl);
+                        client.DownloadFileAsync(update, saveto);
+                        client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
+                        client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
+                    }
+                    catch
+                    {
+                        VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.Standard360);
+                        mp4out = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + ".mp4";
+                        label11.Text = video.Title;
+                        label17.Text = "360p";
+                        WebClient client = new WebClient();
+                        string saveto = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + video.VideoExtension;
+                        vidout = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + @"\" + video.Title + ".mp3";
+                        viddling = saveto;
+                        client.Encoding = System.Text.Encoding.UTF8;
+                        Uri update = new Uri(video.DownloadUrl);
+                        client.DownloadFileAsync(update, saveto);
+                        client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
+                        client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
+                    }
+                }
+                else if (TubeRip.Properties.Settings.Default.videoquality == "1080")
+                {
+                    try
+                    {
+                        VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.HighDefinition1080);
+                        mp4out = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + ".mp4";
+                        label11.Text = video.Title;
+                        label17.Text = "1080p";
+                        WebClient client = new WebClient();
+                        string saveto = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + video.VideoExtension;
+                        vidout = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + @"\" + video.Title + ".mp3";
+                        viddling = saveto;
+                        client.Encoding = System.Text.Encoding.UTF8;
+                        Uri update = new Uri(video.DownloadUrl);
+                        client.DownloadFileAsync(update, saveto);
+                        client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
+                        client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
+                    }
+                    catch
+                    {
+                        VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.Standard360);
+                        mp4out = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + ".mp4";
+                        label11.Text = video.Title;
+                        label17.Text = "360p";
+                        WebClient client = new WebClient();
+                        string saveto = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + video.VideoExtension;
+                        vidout = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + @"\" + video.Title + ".mp3";
+                        viddling = saveto;
+                        client.Encoding = System.Text.Encoding.UTF8;
+                        Uri update = new Uri(video.DownloadUrl);
+                        client.DownloadFileAsync(update, saveto);
+                        client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
+                        client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.HighDefinition720);
+                        mp4out = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + ".mp4";
+                        label11.Text = video.Title;
+                        label17.Text = "720p";
+                        WebClient client = new WebClient();
+                        string saveto = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + video.VideoExtension;
+                        vidout = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + @"\" + video.Title + ".mp3";
+                        viddling = saveto;
+                        client.Encoding = System.Text.Encoding.UTF8;
+                        Uri update = new Uri(video.DownloadUrl);
+                        client.DownloadFileAsync(update, saveto);
+                        client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
+                        client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
+                    }
+                    catch
+                    {
+                        VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.Standard360);
+                        mp4out = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + ".mp4";
+                        label11.Text = video.Title;
+                        label17.Text = "360p";
+                        WebClient client = new WebClient();
+                        string saveto = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + video.VideoExtension;
+                        vidout = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + @"\" + video.Title + ".mp3";
+                        viddling = saveto;
+                        client.Encoding = System.Text.Encoding.UTF8;
+                        Uri update = new Uri(video.DownloadUrl);
+                        client.DownloadFileAsync(update, saveto);
+                        client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
+                        client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
+                    }
+                }
+                #endregion
             }
             else
             {
@@ -185,7 +365,22 @@ namespace TubeRip
         }
         private void getstuff(string videoid)
         {
-            webBrowser1.Navigate("http://youtube.com/v/" + videoid + "&hd=1");
+            if (TubeRip.Properties.Settings.Default.videoquality == "480")
+            {
+                webBrowser1.Navigate("http://youtube.com/v/" + videoid + "&vq=hd480");
+            }
+            else if (TubeRip.Properties.Settings.Default.videoquality == "720")
+            {
+                webBrowser1.Navigate("http://youtube.com/v/" + videoid + "&vq=hd720");
+            }
+            else if (TubeRip.Properties.Settings.Default.videoquality == "1080")
+            {
+                webBrowser1.Navigate("http://youtube.com/v/" + videoid + "&vq=hd1080");
+            }
+            else
+            {
+                webBrowser1.Navigate("http://youtube.com/v/" + videoid + "&vq=hd720");
+            }
             YouTubeRequest request = new YouTubeRequest(settings);
             try
             {
@@ -202,6 +397,11 @@ namespace TubeRip
         }
         private void button2_Click(object sender, EventArgs e)
         {
+            notifyIcon1.BalloonTipIcon = ToolTipIcon.Info;
+            notifyIcon1.BalloonTipTitle = "Quality";
+            notifyIcon1.BalloonTipText = "Your Audio/Video Quality is: " + TubeRip.Properties.Settings.Default.videoquality + "p";
+            notifyIcon1.ShowBalloonTip(5000);
+
             label5.Text = "Related Videos:";
             listView1.Items.Clear();
             getstuff(textBox1.Text);
@@ -257,11 +457,25 @@ namespace TubeRip
 
         private void mainpage_Load(object sender, EventArgs e)
         {
+            if (!String.IsNullOrEmpty(TubeRip.Properties.Settings.Default.audiosavepath))
+            {
+                TubeRip.Properties.Settings.Default.audiosavepath = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic);
+            }
+            if (!String.IsNullOrEmpty(TubeRip.Properties.Settings.Default.videosavepath))
+            {
+                TubeRip.Properties.Settings.Default.videosavepath = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
+            }
             if (File.Exists("updater.exe"))
             {
                 File.Delete("updater.exe");
             }
+            notifyIcon1.BalloonTipIcon = ToolTipIcon.Info;
+            notifyIcon1.BalloonTipTitle = "Welcome!";
+            notifyIcon1.BalloonTipText = "Welcome to TubeRip!" + Environment.NewLine + "Right-Click this icon for more options.";
+            notifyIcon1.ShowBalloonTip(5000);
         }
+
+
 
         private void button3_Click(object sender, EventArgs e)
         {
@@ -270,42 +484,13 @@ namespace TubeRip
             YouTubeRequest request = new YouTubeRequest(settings);
             YouTubeQuery query = new YouTubeQuery(YouTubeQuery.DefaultVideoUri);
 
-            if (!String.IsNullOrEmpty(textBox2.Text) || (textBox2.Text != "Enter"))
-            {
-                AtomCategory category1 = new AtomCategory(textBox2.Text, YouTubeNameTable.KeywordSchema);
-                query.Categories.Add(new QueryCategory(category1));
-            }
-            else if ((textBox3.Text != "") || (textBox3.Text != "Up To"))
-            {
-                AtomCategory category1 = new AtomCategory(textBox2.Text, YouTubeNameTable.KeywordSchema);
-                query.Categories.Add(new QueryCategory(category1));
-                AtomCategory category2 = new AtomCategory(textBox3.Text, YouTubeNameTable.KeywordSchema);
-                query.Categories.Add(new QueryCategory(category2));
-            }
-            else if ((textBox4.Text != "") || (textBox4.Text != "4 Search"))
-            {
-                AtomCategory category1 = new AtomCategory(textBox2.Text, YouTubeNameTable.KeywordSchema);
-                query.Categories.Add(new QueryCategory(category1));
-                AtomCategory category2 = new AtomCategory(textBox3.Text, YouTubeNameTable.KeywordSchema);
-                query.Categories.Add(new QueryCategory(category2));
-                AtomCategory category3 = new AtomCategory(textBox4.Text, YouTubeNameTable.KeywordSchema);
-                query.Categories.Add(new QueryCategory(category3));
-            }
-            else if ((textBox5.Text != "") || (textBox5.Text != "Terms Here"))
-            {
-                AtomCategory category1 = new AtomCategory(textBox2.Text, YouTubeNameTable.KeywordSchema);
-                query.Categories.Add(new QueryCategory(category1));
-                AtomCategory category2 = new AtomCategory(textBox3.Text, YouTubeNameTable.KeywordSchema);
-                query.Categories.Add(new QueryCategory(category2));
-                AtomCategory category3 = new AtomCategory(textBox4.Text, YouTubeNameTable.KeywordSchema);
-                query.Categories.Add(new QueryCategory(category3));
-                AtomCategory category4 = new AtomCategory(textBox5.Text, YouTubeNameTable.KeywordSchema);
-                query.Categories.Add(new QueryCategory(category4));
-            }
-            else
-            {
-                MessageBox.Show("Please enter at least one search term!");
-            }
+            //order results by the number of views (most viewed first)
+            query.OrderBy = "relevance";
+
+            // search for puppies and include restricted content in the search results
+            // query.SafeSearch could also be set to YouTubeQuery.SafeSearchValues.Moderate
+            query.Query = textBox2.Text;
+            query.SafeSearch = YouTubeQuery.SafeSearchValues.None;
 
             Feed<Video> videoFeed = request.Get<Video>(query);
             printVideoFeed(videoFeed);
@@ -497,6 +682,57 @@ namespace TubeRip
             {
                 MessageBox.Show("Conversion Canceled!");
             }
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form2 about = new Form2();
+            about.Show();
+        }
+
+        private void getSourceCodeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://github.com/djlyriz/RipTube");
+        }
+
+        private void licenseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            addfeats feats = new addfeats();
+            feats.Show();
+        }
+
+        private void loginToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            login logged = new login();
+            logged.Show();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Environment.Exit(0);
+        }
+
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+        if (e.KeyCode == Keys.Enter)
+        {
+            button2_Click((object)sender, (EventArgs)e);
+        }
+
+        }
+
+        private void textBox2_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                button3_Click((object)sender, (EventArgs)e);
+            }
+        }
+
+        private void preferencesToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            preferences prefs = new preferences();
+            prefs.Show();
         }
     }
 }

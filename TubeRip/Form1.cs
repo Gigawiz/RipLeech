@@ -124,7 +124,7 @@ namespace TubeRip
                 System.IO.StreamReader sr = new System.IO.StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("windows-1252"));
                 string update = sr.ReadToEnd();
                 int build = Convert.ToInt32(update);
-                int thisbuild = 4;
+                int thisbuild = 5;
                 if (build > thisbuild)
                 {
                     label2.Visible = true;
@@ -146,7 +146,11 @@ namespace TubeRip
             }
             catch
             {
-                MessageBox.Show("Unable to connect to update server! Please try again later.");
+                MessageBox.Show("Unable to connect to update server! TubeRip will check for updates at next launch!");
+                label2.Visible = false;
+                mainpage home = new mainpage();
+                home.Show();
+                this.Dispose(false);
             }
         }
 

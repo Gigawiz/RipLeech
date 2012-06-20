@@ -58,6 +58,14 @@ namespace TubeRip
             {
                 TubeRip.Properties.Settings.Default.videoquality = "720";
             }
+            if (!String.IsNullOrEmpty(textBox1.Text))
+            {
+                TubeRip.Properties.Settings.Default.videosavepath = textBox1.Text;
+            }
+            if (!String.IsNullOrEmpty(textBox2.Text))
+            {
+                TubeRip.Properties.Settings.Default.audiosavepath = textBox2.Text;
+            }
             TubeRip.Properties.Settings.Default.Save();
             this.Close();
         }
@@ -79,6 +87,56 @@ namespace TubeRip
             else
             {
                 radioButton3.Checked = true;
+            }
+            if (TubeRip.Properties.Settings.Default.videoquality == "240")
+            {
+                radioButton4.Checked = true;
+            }
+            else if (TubeRip.Properties.Settings.Default.videoquality == "360")
+            {
+                radioButton5.Checked = true;
+            }
+            else if (TubeRip.Properties.Settings.Default.videoquality == "480")
+            {
+                radioButton6.Checked = true;
+            }
+            else if (TubeRip.Properties.Settings.Default.videoquality == "720")
+            {
+                radioButton7.Checked = true;
+            }
+            else if (TubeRip.Properties.Settings.Default.videoquality == "1080")
+            {
+                radioButton8.Checked = true;
+            }
+            else
+            {
+                radioButton7.Checked = true;
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog FBD1 = new FolderBrowserDialog();
+            FBD1.ShowNewFolderButton = true;
+            FBD1.Description = "Choose a location to save the Video files downloaded by TubeRip";
+            FBD1.RootFolder = System.Environment.SpecialFolder.MyComputer;
+            DialogResult result = FBD1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                textBox1.Text = FBD1.SelectedPath;
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog FBD1 = new FolderBrowserDialog();
+            FBD1.ShowNewFolderButton = true;
+            FBD1.Description = "Choose a location to save the Audio files downloaded by TubeRip";
+            FBD1.RootFolder = System.Environment.SpecialFolder.MyComputer;
+            DialogResult result = FBD1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                textBox2.Text = FBD1.SelectedPath;
             }
         }
     }

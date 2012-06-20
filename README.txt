@@ -1,6 +1,14 @@
 TubeRip is designed to allow you to download YouTube videos to your hard drive in mp3 or mp4 format.
 
 *Changelog*
+V2.3b
+Added search Feature.
+Added about, login, add features and get source forms.
+Added video quality options to Options.
+Added default Save Location options to options menu.
+Created tutorial video to load at boot.
+Added background to make it less bright (for those of us who dispise being blinded at 2am).
+
 V2.2b
 Fixed a bug where FFMPEG would not open.
 Fixed a bug where the Related Videos would not clear before adding more.
