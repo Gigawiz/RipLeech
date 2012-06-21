@@ -104,6 +104,8 @@
     <None Include="Resources\Newtonsoft.Json.dll" />
     <None Include="Resources\ffmpeg-32.exe" />
     <None Include="Resources\ffmpeg-64.exe" />
+    <None Include="Resources\DevComponents.DotNetBar2.dll" />
+    <None Include="Resources\MySql.Data.dll" />
     <None Include="Resources\TubeRip.exe" />
     <Content Include="tuberipicon.ico" />
   </ItemGroup>

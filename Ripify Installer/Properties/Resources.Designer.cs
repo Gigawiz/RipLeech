@@ -63,6 +63,16 @@ namespace TubeRip_Installer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] DevComponents_DotNetBar2 {
+            get {
+                object obj = ResourceManager.GetObject("DevComponents_DotNetBar2", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] ffmpeg_32 {
             get {
                 object obj = ResourceManager.GetObject("ffmpeg_32", resourceCulture);
@@ -116,6 +126,16 @@ namespace TubeRip_Installer.Properties {
         internal static byte[] LumenWorks_Framework_IO {
             get {
                 object obj = ResourceManager.GetObject("LumenWorks_Framework_IO", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] MySql_Data {
+            get {
+                object obj = ResourceManager.GetObject("MySql_Data", resourceCulture);
                 return ((byte[])(obj));
             }
         }

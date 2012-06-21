@@ -1,6 +1,16 @@
 TubeRip is designed to allow you to download YouTube videos to your hard drive in mp3 or mp4 format.
 
 *Changelog*
+V2.4b
+Started adding user system based off mysql.
+Current features of user system are:
+  Login to account
+  Register new account
+  Display account details
+  Display total number of previewed & Downloaded videos
+  Email Verification of accounts.
+More work will be done to the user system before the next release.
+
 V2.3b
 Added search Feature.
 Added about, login, add features and get source forms.

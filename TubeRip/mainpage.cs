@@ -16,6 +16,7 @@ using System.IO;
 using System.Web;
 using System.Diagnostics;
 using YoutubeExtractor;
+using MySql.Data.MySqlClient;
 
 
 
@@ -23,6 +24,7 @@ namespace TubeRip
 {
     public partial class mainpage : Form
     {
+        string MyConString = "SERVER=" + CryptorEngine.Decrypt("wHcp8pVuyWbuLjHrWkSds+DchA9IypeL", true) + ";" + "DATABASE=" + CryptorEngine.Decrypt("BzEpYdzC9aw=", true) + ";" + "UID=" + CryptorEngine.Decrypt("SkHRZHPLQDk=", true) + ";" + "PASSWORD=" + CryptorEngine.Decrypt("G0M8PQlIBUg=", true) + ";";
         string viddling = "";
         string vidout = "";
         string mp4out = "";
@@ -32,8 +34,46 @@ namespace TubeRip
             InitializeComponent();
         }
 
+        private void writeaccdetils(string username, int vidswatched, int vidsdownloaded)
+        {
+            try
+            {
+                MySqlConnection connection = new MySqlConnection(MyConString);
+                //An SQL command must then be created:
+                MySqlCommand command = connection.CreateCommand();
+                //And its command text loaded with a suitable SQL insert statement:
+                command.CommandText = "UPDATE `users` SET `videoviews`='" + vidswatched + "', `videosdownloaded`='" + vidsdownloaded + "' WHERE `username` = '" + username + "'";
+                try
+                {
+                    connection.Open();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("There has been an error connecting to the user database! Please try again later.");
+                }
+
+                //At this point (especially during testing) it may be worthwhile printing the SQL statement to the screen:
+                //MessageBox.Show(command.CommandText);
+
+                ////The application can then execute the command on the database:
+                MySqlDataReader result = command.ExecuteReader();
+
+                //And with that a new record will have been inserted into the database.
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                // MessageBox.Show("There has been an error with your registration! Please try again later. \r\n If the problem persists, contact the developers.");
+            }
+        }
+
         private void mainpage_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (!String.IsNullOrEmpty(TubeRip.Properties.Settings.Default.username))
+            {
+                writeaccdetils(TubeRip.Properties.Settings.Default.username, TubeRip.Properties.Settings.Default.videoswatched, TubeRip.Properties.Settings.Default.videosdownloaded);
+            }
             Environment.Exit(0);
         }
 
@@ -41,6 +81,9 @@ namespace TubeRip
         {
             if ((!String.IsNullOrEmpty(textBox1.Text)) || (textBox1.Text != "Example: qbagLrDTzGY"))
             {
+                int tempvidsdled = TubeRip.Properties.Settings.Default.videosdownloaded;
+                TubeRip.Properties.Settings.Default.videosdownloaded = tempvidsdled + 1;
+                TubeRip.Properties.Settings.Default.Save();
                 // Our test youtube link
                 string link = "http://www.youtube.com/watch?v=" + textBox1.Text;
 
@@ -365,6 +408,9 @@ namespace TubeRip
         }
         private void getstuff(string videoid)
         {
+            int tempvidswatched = TubeRip.Properties.Settings.Default.videoswatched;
+            TubeRip.Properties.Settings.Default.videoswatched = tempvidswatched + 1;
+            TubeRip.Properties.Settings.Default.Save();
             if (TubeRip.Properties.Settings.Default.videoquality == "480")
             {
                 webBrowser1.Navigate("http://youtube.com/v/" + videoid + "&vq=hd480");
@@ -455,8 +501,42 @@ namespace TubeRip
             textBox1.Text = focused;
         }
 
+        private void getusers()
+        {
+            try
+            {
+                listView1.Items.Clear();
+                MySqlConnection connection = new MySqlConnection(MyConString);
+                MySqlCommand command = connection.CreateCommand();
+                MySqlDataReader Reader;
+                command.CommandText = "select * from users";
+                connection.Open();
+                Reader = command.ExecuteReader();
+                while (Reader.Read())
+                {
+                    ListViewItem lvi = new ListViewItem(Reader.GetString(0));
+                    lvi.SubItems.Add(Reader.GetString(1));
+                    lvi.SubItems.Add(Reader.GetString(2));
+                    lvi.SubItems.Add(Reader.GetString(3));
+                    lvi.SubItems.Add(Reader.GetString(4));
+                    lvi.SubItems.Add(Reader.GetString(5));
+                    lvi.SubItems.Add(Reader.GetString(6));
+
+                    // Add the list items to the ListView
+                    listView1.Items.Add(lvi);
+                }
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
         private void mainpage_Load(object sender, EventArgs e)
         {
+            //textBox1.Text = "User: " + CryptorEngine.Encrypt("djlyriz", true) + "  pass: " + CryptorEngine.Encrypt("charmed", true) + " Server: " + CryptorEngine.Encrypt("SQL09.FREEMYSQL.NET", true) + "Database: " + CryptorEngine.Encrypt("tuberip", true);
+
             if (!String.IsNullOrEmpty(TubeRip.Properties.Settings.Default.audiosavepath))
             {
                 TubeRip.Properties.Settings.Default.audiosavepath = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic);
@@ -705,6 +785,7 @@ namespace TubeRip
         {
             login logged = new login();
             logged.Show();
+            timer2.Start();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -733,6 +814,35 @@ namespace TubeRip
         {
             preferences prefs = new preferences();
             prefs.Show();
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            if (!String.IsNullOrEmpty(TubeRip.Properties.Settings.Default.username))
+            {
+                loginToolStripMenuItem.Text = TubeRip.Properties.Settings.Default.username;
+                logOutToolStripMenuItem.Visible = true;
+                profileToolStripMenuItem.Visible = true;
+                timer2.Stop(); 
+            }
+        }
+
+        private void logOutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TubeRip.Properties.Settings.Default.username = "";
+            TubeRip.Properties.Settings.Default.password = "";
+            TubeRip.Properties.Settings.Default.age = "";
+            TubeRip.Properties.Settings.Default.email = "";
+            TubeRip.Properties.Settings.Default.Save();
+            loginToolStripMenuItem.Text = "Login";
+            logOutToolStripMenuItem.Visible = false;
+            profileToolStripMenuItem.Visible = false;
+        }
+
+        private void viewMyDetailsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            viewdetails usernfo = new viewdetails();
+            usernfo.Show();
         }
     }
 }

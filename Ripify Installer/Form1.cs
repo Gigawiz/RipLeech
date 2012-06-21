@@ -42,6 +42,10 @@ namespace TubeRip_Installer
             System.IO.File.WriteAllBytes(dir5, TubeRip_Installer.Properties.Resources.Newtonsoft_Json);
             string dir6 = installfolder + "TubeRip.exe";
             System.IO.File.WriteAllBytes(dir6, TubeRip_Installer.Properties.Resources.TubeRip1);
+            string dir9 = installfolder + "DevComponents.DotNetBar2.dll";
+            System.IO.File.WriteAllBytes(dir9, TubeRip_Installer.Properties.Resources.DevComponents_DotNetBar2);
+            string dir10 = installfolder + "MySql.Data.dll";
+            System.IO.File.WriteAllBytes(dir10, TubeRip_Installer.Properties.Resources.MySql_Data);
             if (dlnfo.Exists)
             {
                 Directory.Delete(installfolder + @"\Downloads", true);
