@@ -48,6 +48,8 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // label1
@@ -132,7 +134,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(37, 25);
+            this.textBox1.Location = new System.Drawing.Point(90, 25);
             this.textBox1.Name = "textBox1";
             this.textBox1.PasswordChar = '*';
             this.textBox1.Size = new System.Drawing.Size(193, 20);
@@ -140,7 +142,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(155, 48);
+            this.button1.Location = new System.Drawing.Point(208, 48);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 9;
@@ -150,7 +152,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(198, 199);
+            this.button2.Location = new System.Drawing.Point(430, 194);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 10;
@@ -161,7 +163,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(34, 9);
+            this.label9.Location = new System.Drawing.Point(87, 9);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(196, 13);
             this.label9.TabIndex = 11;
@@ -247,11 +249,32 @@
             this.label17.Text = "----";
             this.label17.Visible = false;
             // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(176, 9);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(70, 13);
+            this.label18.TabIndex = 21;
+            this.label18.Text = "Paid Addons:";
+            this.label18.Visible = false;
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(205, 31);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(300, 160);
+            this.listBox1.TabIndex = 20;
+            this.listBox1.Visible = false;
+            // 
             // viewdetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(285, 234);
+            this.ClientSize = new System.Drawing.Size(521, 226);
+            this.Controls.Add(this.label18);
+            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.label15);
@@ -275,7 +298,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "viewdetails";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "TubeRip - View User Details";
+            this.Text = "User Details";
             this.Load += new System.EventHandler(this.viewdetails_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -304,5 +327,7 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.ListBox listBox1;
     }
 }

@@ -30,6 +30,7 @@ namespace TubeRip_Installer
             timer9.Stop();
             DirectoryInfo dirnfo = new DirectoryInfo(installfolder + @"\Data");
             DirectoryInfo dlnfo = new DirectoryInfo(installfolder + @"\Downloads");
+            DirectoryInfo addondir = new DirectoryInfo(installfolder + @"\Data\Addons");
             string dir = installfolder + "Google.GData.Client.dll";
             System.IO.File.WriteAllBytes(dir, TubeRip_Installer.Properties.Resources.Google_GData_Client);
             string dir2 = installfolder + "Google.GData.Extensions.dll";
@@ -52,8 +53,11 @@ namespace TubeRip_Installer
             }
             if (!dirnfo.Exists)
             {
-                Directory.CreateDirectory(installfolder);
                 Directory.CreateDirectory(installfolder + @"Data");
+            }
+            if (!addondir.Exists)
+            {
+                Directory.CreateDirectory(installfolder + @"Data\Addons");
             }
             string dir7 = installfolder + @"Data\ffmpeg-32.exe";
             System.IO.File.WriteAllBytes(dir7, TubeRip_Installer.Properties.Resources.ffmpeg_32);

@@ -12,7 +12,7 @@ namespace TubeRip
 {
     public partial class login : Form
     {
-        string MyConString = "SERVER=" + CryptorEngine.Decrypt("wHcp8pVuyWbuLjHrWkSds+DchA9IypeL", true) + ";" + "DATABASE=" + CryptorEngine.Decrypt("BzEpYdzC9aw=", true) + ";" + "UID=" + CryptorEngine.Decrypt("SkHRZHPLQDk=", true) + ";" + "PASSWORD=" + CryptorEngine.Decrypt("G0M8PQlIBUg=", true) + ";";
+        string MyConString = "SERVER=djlyriz.myftp.org;" + "DATABASE=" + CryptorEngine.Decrypt("BzEpYdzC9aw=", true) + ";" + "UID=" + CryptorEngine.Decrypt("SkHRZHPLQDk=", true) + ";" + "PASSWORD=" + CryptorEngine.Decrypt("G0M8PQlIBUg=", true) + ";";
         public login()
         {
             InitializeComponent();
@@ -95,6 +95,11 @@ namespace TubeRip
             register reg = new register();
             reg.Show();
             this.Close();
+        }
+
+        private void login_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

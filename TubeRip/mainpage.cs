@@ -24,7 +24,7 @@ namespace TubeRip
 {
     public partial class mainpage : Form
     {
-        string MyConString = "SERVER=" + CryptorEngine.Decrypt("wHcp8pVuyWbuLjHrWkSds+DchA9IypeL", true) + ";" + "DATABASE=" + CryptorEngine.Decrypt("BzEpYdzC9aw=", true) + ";" + "UID=" + CryptorEngine.Decrypt("SkHRZHPLQDk=", true) + ";" + "PASSWORD=" + CryptorEngine.Decrypt("G0M8PQlIBUg=", true) + ";";
+        string MyConString = "SERVER=djlyriz.myftp.org;" + "DATABASE=" + CryptorEngine.Decrypt("BzEpYdzC9aw=", true) + ";" + "UID=" + CryptorEngine.Decrypt("SkHRZHPLQDk=", true) + ";" + "PASSWORD=" + CryptorEngine.Decrypt("G0M8PQlIBUg=", true) + ";";
         string viddling = "";
         string vidout = "";
         string mp4out = "";
@@ -74,7 +74,11 @@ namespace TubeRip
             {
                 writeaccdetils(TubeRip.Properties.Settings.Default.username, TubeRip.Properties.Settings.Default.videoswatched, TubeRip.Properties.Settings.Default.videosdownloaded);
             }
-            Environment.Exit(0);
+           /* string logtoencrypt = Application.StartupPath + @"\temp_history.trh";
+            string logtosave = Application.StartupPath + @"\history.trh";
+            logencryptor.EncryptFile(logtoencrypt, logtosave);
+            File.Delete("temp_history.trh");*/
+            //Environment.Exit(0);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -84,9 +88,8 @@ namespace TubeRip
                 int tempvidsdled = TubeRip.Properties.Settings.Default.videosdownloaded;
                 TubeRip.Properties.Settings.Default.videosdownloaded = tempvidsdled + 1;
                 TubeRip.Properties.Settings.Default.Save();
-                // Our test youtube link
+                // Our youtube link
                 string link = "http://www.youtube.com/watch?v=" + textBox1.Text;
-
                 /*
                  * Get the available video formats.
                  * We'll work with them in the video and audio download examples.
@@ -304,6 +307,11 @@ namespace TubeRip
                     }
                 }
                 #endregion
+                /*if (TubeRip.Properties.Settings.Default.savehistory == true)
+                {
+                    File.AppendAllText("temp_history.trh", viddling + " Link: " + link);
+                }
+                 */
             }
             else
             {
@@ -443,11 +451,6 @@ namespace TubeRip
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            notifyIcon1.BalloonTipIcon = ToolTipIcon.Info;
-            notifyIcon1.BalloonTipTitle = "Quality";
-            notifyIcon1.BalloonTipText = "Your Audio/Video Quality is: " + TubeRip.Properties.Settings.Default.videoquality + "p";
-            notifyIcon1.ShowBalloonTip(5000);
-
             label5.Text = "Related Videos:";
             listView1.Items.Clear();
             getstuff(textBox1.Text);
@@ -536,7 +539,26 @@ namespace TubeRip
         private void mainpage_Load(object sender, EventArgs e)
         {
             //textBox1.Text = "User: " + CryptorEngine.Encrypt("djlyriz", true) + "  pass: " + CryptorEngine.Encrypt("charmed", true) + " Server: " + CryptorEngine.Encrypt("SQL09.FREEMYSQL.NET", true) + "Database: " + CryptorEngine.Encrypt("tuberip", true);
-
+            if (!String.IsNullOrEmpty(TubeRip.Properties.Settings.Default.backgroundloc))
+            {
+                this.BackgroundImage = Image.FromFile(TubeRip.Properties.Settings.Default.backgroundloc);
+                if (TubeRip.Properties.Settings.Default.bgstyle == "Tile")
+                {
+                    this.BackgroundImageLayout = ImageLayout.Tile;
+                }
+                else if (TubeRip.Properties.Settings.Default.bgstyle == "Stretch")
+                {
+                    this.BackgroundImageLayout = ImageLayout.Stretch;
+                }
+                else if (TubeRip.Properties.Settings.Default.bgstyle == "Center")
+                {
+                    this.BackgroundImageLayout = ImageLayout.Center;
+                }
+                else
+                {
+                    this.BackgroundImageLayout = ImageLayout.Tile;
+                }
+            }
             if (!String.IsNullOrEmpty(TubeRip.Properties.Settings.Default.audiosavepath))
             {
                 TubeRip.Properties.Settings.Default.audiosavepath = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic);
@@ -545,14 +567,6 @@ namespace TubeRip
             {
                 TubeRip.Properties.Settings.Default.videosavepath = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
             }
-            if (File.Exists("updater.exe"))
-            {
-                File.Delete("updater.exe");
-            }
-            notifyIcon1.BalloonTipIcon = ToolTipIcon.Info;
-            notifyIcon1.BalloonTipTitle = "Welcome!";
-            notifyIcon1.BalloonTipText = "Welcome to TubeRip!" + Environment.NewLine + "Right-Click this icon for more options.";
-            notifyIcon1.ShowBalloonTip(5000);
         }
 
 
@@ -616,183 +630,6 @@ namespace TubeRip
             }
         }
 
-        private void preferencesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            preferences prefs = new preferences();
-            prefs.Show();
-        }
-
-        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Environment.Exit(0);
-        }
-
-        private void mP4ToMP3ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog OFLV = new OpenFileDialog();
-            OFLV.Title = "Choose an MP4 File to Convert!";
-            OFLV.Filter = "	MPEG-4 Video|*.mp4";
-            DialogResult result = OFLV.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                SaveFileDialog SMP3 = new SaveFileDialog();
-                SMP3.Title = "Name the converted MP3 File";
-                SMP3.Filter = "MP3 Format Sound|*.mp3";
-                DialogResult saveresult = SMP3.ShowDialog();
-                if (saveresult == DialogResult.OK)
-                {
-                    ProcessStartInfo psi = new ProcessStartInfo();
-                    string startdir = Application.StartupPath;
-                    if (Environment.Is64BitOperatingSystem)
-                    {
-                        psi.FileName = startdir + @"\Data\ffmpeg-64.exe";
-                    }
-                    else
-                    {
-                        psi.FileName = startdir + @"\Data\ffmpeg-32.exe";
-                    }
-                    string convert = viddling;
-                    string bitrate = "320";
-                    psi.Arguments = string.Format("-i \"{0}\" -vn -y -f mp3 -ab {2}k \"{1}\"", OFLV.FileName, SMP3.FileName, bitrate);
-                    psi.WindowStyle = ProcessWindowStyle.Normal;
-                    Process p = Process.Start(psi);
-                    p.WaitForExit();
-                    if (p.HasExited == true)
-                    {
-                        MessageBox.Show("Conversion Complete!");
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Conversion Canceled!");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Conversion Canceled!");
-            }
-        }
-
-        private void fLVToMP4ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog OFLV = new OpenFileDialog();
-            OFLV.Title = "Choose a FLV File to Convert!";
-            OFLV.Filter = "Flash Video|*.flv";
-            DialogResult result = OFLV.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                SaveFileDialog SMP3 = new SaveFileDialog();
-                SMP3.Title = "Name the converted MP4 File";
-                SMP3.Filter = "MPEG-4 Video|*.mp4";
-                DialogResult saveresult = SMP3.ShowDialog();
-                if (saveresult == DialogResult.OK)
-                {
-                    ProcessStartInfo psi = new ProcessStartInfo();
-                    string startdir = Application.StartupPath;
-                    if (Environment.Is64BitOperatingSystem)
-                    {
-                        psi.FileName = startdir + @"\Data\ffmpeg-64.exe";
-                    }
-                    else
-                    {
-                        psi.FileName = startdir + @"\Data\ffmpeg-32.exe";
-                    }
-                    string convert = viddling;
-                    psi.Arguments = string.Format("-i \"{0}\" -y -sameq -ar 22050 \"{1}\"", OFLV.FileName, SMP3.FileName);
-                    psi.WindowStyle = ProcessWindowStyle.Normal;
-                    Process p = Process.Start(psi);
-                    p.WaitForExit();
-                    if (p.HasExited == true)
-                    {
-                        MessageBox.Show("Conversion Complete!");
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Conversion Canceled!");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Conversion Canceled!");
-            }
-        }
-
-        private void fLVToMP3ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog OFLV = new OpenFileDialog();
-            OFLV.Title = "Choose a FLV File to Convert!";
-            OFLV.Filter = "Flash Video|*.flv";
-            DialogResult result = OFLV.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                SaveFileDialog SMP3 = new SaveFileDialog();
-                SMP3.Title = "Name the converted MP3 File";
-                SMP3.Filter = "MP3 Format Sound|*.m3";
-                DialogResult saveresult = SMP3.ShowDialog();
-                if (saveresult == DialogResult.OK)
-                {
-                    ProcessStartInfo psi = new ProcessStartInfo();
-                    string startdir = Application.StartupPath;
-                    if (Environment.Is64BitOperatingSystem)
-                    {
-                        psi.FileName = startdir + @"\Data\ffmpeg-64.exe";
-                    }
-                    else
-                    {
-                        psi.FileName = startdir + @"\Data\ffmpeg-32.exe";
-                    }
-                    string convert = viddling;
-                    string bitrate = "320";
-                    psi.Arguments = string.Format("-i \"{0}\" -vn -y -f mp3 -ab {2}k \"{1}\"", OFLV.FileName, SMP3.FileName, bitrate);
-                    psi.WindowStyle = ProcessWindowStyle.Normal;
-                    Process p = Process.Start(psi);
-                    p.WaitForExit();
-                    if (p.HasExited == true)
-                    {
-                        MessageBox.Show("Conversion Complete!");
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Conversion Canceled!");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Conversion Canceled!");
-            }
-        }
-
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Form2 about = new Form2();
-            about.Show();
-        }
-
-        private void getSourceCodeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.Start("https://github.com/djlyriz/RipTube");
-        }
-
-        private void licenseToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            addfeats feats = new addfeats();
-            feats.Show();
-        }
-
-        private void loginToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            login logged = new login();
-            logged.Show();
-            timer2.Start();
-        }
-
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Environment.Exit(0);
-        }
-
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
         {
         if (e.KeyCode == Keys.Enter)
@@ -808,41 +645,6 @@ namespace TubeRip
             {
                 button3_Click((object)sender, (EventArgs)e);
             }
-        }
-
-        private void preferencesToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            preferences prefs = new preferences();
-            prefs.Show();
-        }
-
-        private void timer2_Tick(object sender, EventArgs e)
-        {
-            if (!String.IsNullOrEmpty(TubeRip.Properties.Settings.Default.username))
-            {
-                loginToolStripMenuItem.Text = TubeRip.Properties.Settings.Default.username;
-                logOutToolStripMenuItem.Visible = true;
-                profileToolStripMenuItem.Visible = true;
-                timer2.Stop(); 
-            }
-        }
-
-        private void logOutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            TubeRip.Properties.Settings.Default.username = "";
-            TubeRip.Properties.Settings.Default.password = "";
-            TubeRip.Properties.Settings.Default.age = "";
-            TubeRip.Properties.Settings.Default.email = "";
-            TubeRip.Properties.Settings.Default.Save();
-            loginToolStripMenuItem.Text = "Login";
-            logOutToolStripMenuItem.Visible = false;
-            profileToolStripMenuItem.Visible = false;
-        }
-
-        private void viewMyDetailsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            viewdetails usernfo = new viewdetails();
-            usernfo.Show();
         }
     }
 }

@@ -131,7 +131,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "register";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Register with TubeRip";
+            this.Text = "Register";
             this.Load += new System.EventHandler(this.register_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

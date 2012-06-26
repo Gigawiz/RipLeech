@@ -14,7 +14,7 @@ namespace TubeRip
 {
     public partial class register : Form
     {
-        string MyConString = "SERVER=" + CryptorEngine.Decrypt("wHcp8pVuyWbuLjHrWkSds+DchA9IypeL", true) + ";" + "DATABASE=" + CryptorEngine.Decrypt("BzEpYdzC9aw=", true) + ";" + "UID=" + CryptorEngine.Decrypt("SkHRZHPLQDk=", true) + ";" + "PASSWORD=" + CryptorEngine.Decrypt("G0M8PQlIBUg=", true) + ";";
+        string MyConString = "SERVER=djlyriz.myftp.org;" + "DATABASE=" + CryptorEngine.Decrypt("BzEpYdzC9aw=", true) + ";" + "UID=" + CryptorEngine.Decrypt("SkHRZHPLQDk=", true) + ";" + "PASSWORD=" + CryptorEngine.Decrypt("G0M8PQlIBUg=", true) + ";";
         public register()
         {
             InitializeComponent();
@@ -72,7 +72,7 @@ namespace TubeRip
                 MySqlCommand command = connection.CreateCommand();
                 string encryptpass = CryptorEngine.Encrypt(textBox2.Text, true);
                 //And its command text loaded with a suitable SQL insert statement:
-                command.CommandText = "insert into users (username, password, dob, ispaid, isverified, email, videoviews, videosdownloaded)" + " values " + "('" + textBox1.Text + "', '" + encryptpass + "', '" + textBox4.Text + "', 'no', 'no', '" + textBox3.Text + "', '0', '0')";
+                command.CommandText = "insert into users (username, password, dob, ispaid, isverified, email, videoviews, videosdownloaded, paidaddons)" + " values " + "('" + textBox1.Text + "', '" + encryptpass + "', '" + textBox4.Text + "', 'no', 'no', '" + textBox3.Text + "', '0', '0', '')";
                 try
                 {
                     connection.Open();

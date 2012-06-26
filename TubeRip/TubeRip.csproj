@@ -90,9 +90,27 @@
     <Compile Include="AudioDownloader.cs" />
     <Compile Include="BigEndianBitConverter.cs" />
     <Compile Include="BitHelper.cs" />
+    <Compile Include="container.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="container.Designer.cs">
+      <DependentUpon>container.cs</DependentUpon>
+    </Compile>
     <Compile Include="CryptorEngine.cs" />
+    <Compile Include="dlhistory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dlhistory.Designer.cs">
+      <DependentUpon>dlhistory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Downloader.cs" />
     <Compile Include="DownloadUrlResolver.cs" />
+    <Compile Include="feedbackandsupport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="feedbackandsupport.Designer.cs">
+      <DependentUpon>feedbackandsupport.cs</DependentUpon>
+    </Compile>
     <Compile Include="FlvFile.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -107,7 +125,9 @@
       <DependentUpon>Form2.cs</DependentUpon>
     </Compile>
     <Compile Include="IAudioExtractor.cs" />
+    <Compile Include="Interfaces.cs" />
     <Compile Include="ListVideos.cs" />
+    <Compile Include="logencryptor.cs" />
     <Compile Include="login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -153,10 +173,17 @@
     <Compile Include="viewdetails.Designer.cs">
       <DependentUpon>viewdetails.cs</DependentUpon>
     </Compile>
-    <Compile Include="webBrowser1_DocumentCompleted.cs" />
-    <Compile Include="youtube.cs" />
     <EmbeddedResource Include="addfeats.resx">
       <DependentUpon>addfeats.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="container.resx">
+      <DependentUpon>container.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dlhistory.resx">
+      <DependentUpon>dlhistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="feedbackandsupport.resx">
+      <DependentUpon>feedbackandsupport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -209,6 +236,7 @@
   <ItemGroup>
     <None Include="Resources\Site_under_Construction_by_UP_AME.jpg" />
     <None Include="Resources\bg.gif" />
+    <None Include="Resources\tuberip_1.png" />
     <Content Include="tuberipicon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

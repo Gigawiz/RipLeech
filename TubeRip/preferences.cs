@@ -66,12 +66,41 @@ namespace TubeRip
             {
                 TubeRip.Properties.Settings.Default.audiosavepath = textBox2.Text;
             }
+            if (checkBox1.Checked == true)
+            {
+                TubeRip.Properties.Settings.Default.savehistory = true;
+            }
+            else
+            {
+                TubeRip.Properties.Settings.Default.savehistory = false;
+            }
+            TubeRip.Properties.Settings.Default.updatebg = true;
             TubeRip.Properties.Settings.Default.Save();
             this.Close();
         }
 
         private void preferences_Load(object sender, EventArgs e)
         {
+            if (!String.IsNullOrEmpty(TubeRip.Properties.Settings.Default.backgroundloc))
+            {
+                this.BackgroundImage = Image.FromFile(TubeRip.Properties.Settings.Default.backgroundloc);
+                if (TubeRip.Properties.Settings.Default.bgstyle == "Tile")
+                {
+                    this.BackgroundImageLayout = ImageLayout.Tile;
+                }
+                else if (TubeRip.Properties.Settings.Default.bgstyle == "Stretch")
+                {
+                    this.BackgroundImageLayout = ImageLayout.Stretch;
+                }
+                else if (TubeRip.Properties.Settings.Default.bgstyle == "Center")
+                {
+                    this.BackgroundImageLayout = ImageLayout.Center;
+                }
+                else
+                {
+                    this.BackgroundImageLayout = ImageLayout.Tile;
+                }
+            }
             if (TubeRip.Properties.Settings.Default.audioquality == "")
             {
                 radioButton1.Checked = true;
@@ -138,6 +167,55 @@ namespace TubeRip
             {
                 textBox2.Text = FBD1.SelectedPath;
             }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog OBF = new OpenFileDialog();
+            OBF.Title = "Choose an image for your background.";
+            OBF.Filter = "PNG Image|*.png|Jpg Image|*.jpg|Jpeg Image|*.jpeg|Gif Image|*.gif";
+            DialogResult saveresult = OBF.ShowDialog();
+            if (saveresult == DialogResult.OK)
+            {
+                if (radioButton9.Checked == true)
+                {
+                    TubeRip.Properties.Settings.Default.bgstyle = "Tile";
+                    TubeRip.Properties.Settings.Default.backgroundloc = OBF.FileName;
+                    TubeRip.Properties.Settings.Default.updatebg = true;
+                    TubeRip.Properties.Settings.Default.Save();
+                }
+                else if (radioButton10.Checked == true)
+                {
+                    TubeRip.Properties.Settings.Default.bgstyle = "Stretch";
+                    TubeRip.Properties.Settings.Default.backgroundloc = OBF.FileName;
+                    TubeRip.Properties.Settings.Default.updatebg = true;
+                    TubeRip.Properties.Settings.Default.Save();
+                }
+                else if (radioButton11.Checked == true)
+                {
+                    TubeRip.Properties.Settings.Default.bgstyle = "Center";
+                    TubeRip.Properties.Settings.Default.backgroundloc = OBF.FileName;
+                    TubeRip.Properties.Settings.Default.updatebg = true;
+                    TubeRip.Properties.Settings.Default.Save();
+                }
+                else
+                {
+                    TubeRip.Properties.Settings.Default.bgstyle = "Tile";
+                    TubeRip.Properties.Settings.Default.backgroundloc = OBF.FileName;
+                    TubeRip.Properties.Settings.Default.updatebg = true;
+                    TubeRip.Properties.Settings.Default.Save();
+                }
+                MessageBox.Show("Please Restart TubeRip to see your new background!");
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            TubeRip.Properties.Settings.Default.bgstyle = "Tile";
+            TubeRip.Properties.Settings.Default.backgroundloc = "";
+            TubeRip.Properties.Settings.Default.updatebg = true;
+            TubeRip.Properties.Settings.Default.Save();
+            MessageBox.Show("Please Restart TubeRip to see your new background!");
         }
     }
 }

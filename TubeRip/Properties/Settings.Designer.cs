@@ -178,5 +178,53 @@ namespace TubeRip.Properties {
                 this["scriptstats"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool savehistory {
+            get {
+                return ((bool)(this["savehistory"]));
+            }
+            set {
+                this["savehistory"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string backgroundloc {
+            get {
+                return ((string)(this["backgroundloc"]));
+            }
+            set {
+                this["backgroundloc"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool updatebg {
+            get {
+                return ((bool)(this["updatebg"]));
+            }
+            set {
+                this["updatebg"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Tile")]
+        public string bgstyle {
+            get {
+                return ((string)(this["bgstyle"]));
+            }
+            set {
+                this["bgstyle"] = value;
+            }
+        }
     }
 }

@@ -41,5 +41,29 @@ namespace TubeRip
         {
             this.Close();
         }
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+            if (!String.IsNullOrEmpty(TubeRip.Properties.Settings.Default.backgroundloc))
+            {
+                this.BackgroundImage = Image.FromFile(TubeRip.Properties.Settings.Default.backgroundloc);
+                if (TubeRip.Properties.Settings.Default.bgstyle == "Tile")
+                {
+                    this.BackgroundImageLayout = ImageLayout.Tile;
+                }
+                else if (TubeRip.Properties.Settings.Default.bgstyle == "Stretch")
+                {
+                    this.BackgroundImageLayout = ImageLayout.Stretch;
+                }
+                else if (TubeRip.Properties.Settings.Default.bgstyle == "Center")
+                {
+                    this.BackgroundImageLayout = ImageLayout.Center;
+                }
+                else
+                {
+                    this.BackgroundImageLayout = ImageLayout.Tile;
+                }
+            }
+        }
     }
 }

@@ -41,5 +41,17 @@
     <Setting Name="scriptstats" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="savehistory" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="backgroundloc" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="updatebg" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="bgstyle" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Tile</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

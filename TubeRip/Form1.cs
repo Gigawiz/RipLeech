@@ -7,11 +7,23 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Net;
+using System.Threading;
 
 namespace TubeRip
 {
     public partial class Form1 : Form
     {
+        private bool checknetconnection()
+        {
+            if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable() == false)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
         public Form1()
         {
             InitializeComponent();
@@ -19,7 +31,16 @@ namespace TubeRip
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            timer1.Start();
+            bool isconnected = checknetconnection();
+            if (isconnected == false)
+            {
+                MessageBox.Show("You must be connected to the internet to use TubeRip!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Environment.Exit(0);
+            }
+            else
+            {
+                timer1.Start();
+            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -124,7 +145,7 @@ namespace TubeRip
                 System.IO.StreamReader sr = new System.IO.StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("windows-1252"));
                 string update = sr.ReadToEnd();
                 int build = Convert.ToInt32(update);
-                int thisbuild = 5;
+                int thisbuild = 7;
                 if (build > thisbuild)
                 {
                     label2.Visible = true;
@@ -139,7 +160,7 @@ namespace TubeRip
                 else
                 {
                     label2.Visible = false;
-                    mainpage home = new mainpage();
+                    container home = new container();
                     home.Show();
                     this.Dispose(false);
                 }
@@ -148,7 +169,7 @@ namespace TubeRip
             {
                 MessageBox.Show("Unable to connect to update server! TubeRip will check for updates at next launch!");
                 label2.Visible = false;
-                mainpage home = new mainpage();
+                container home = new container();
                 home.Show();
                 this.Dispose(false);
             }

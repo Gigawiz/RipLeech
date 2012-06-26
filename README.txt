@@ -1,6 +1,18 @@
 TubeRip is designed to allow you to download YouTube videos to your hard drive in mp3 or mp4 format.
 
 *Changelog*
+V2.5b
+Changed Layout. Starting form is now a MDIContainer
+Added Plugin System
+95% Finished on Addons
+Added Support & Feedback Form
+Added option to change wallpaper of program
+Added Documentation and form examples for plugins
+Added System Messaging Feature
+Started adding Encrypted History feature
+Swapped MySql Servers as old one was not allowing email verification
+Added "Paid Features" to User Details Window, Addons are free until program is out of beta.
+
 V2.4b
 Started adding user system based off mysql.
 Current features of user system are:
