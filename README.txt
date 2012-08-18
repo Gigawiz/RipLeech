@@ -1,6 +1,11 @@
-TubeRip is designed to allow you to download YouTube videos to your hard drive in mp3 or mp4 format.
+RipLeech is designed to allow you to download YouTube videos to your hard drive in mp3 or mp4 format.
 
 *Changelog*
+V3.1A
+Recoded entire user system/layout/plugin system
+Started adding queue and playlist downloader
+Renamed from TubeRip to RipLeech
+
 V2.5b
 Changed Layout. Starting form is now a MDIContainer
 Added Plugin System
