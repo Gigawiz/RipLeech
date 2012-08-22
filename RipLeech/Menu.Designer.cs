@@ -51,6 +51,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.button10 = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.button9 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
@@ -75,6 +76,12 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.listBox2 = new System.Windows.Forms.ListBox();
+            this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.button11 = new System.Windows.Forms.Button();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.listBox3 = new System.Windows.Forms.ListBox();
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.tabPage6 = new System.Windows.Forms.TabPage();
@@ -93,6 +100,7 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.timer3 = new System.Windows.Forms.Timer(this.components);
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.transparentLabel1 = new TransparentLabel();
             this.transparentLabel3 = new TransparentLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -111,6 +119,7 @@
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tabPage5.SuspendLayout();
+            this.tabPage8.SuspendLayout();
             this.tabPage7.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -317,6 +326,7 @@
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage5);
+            this.tabControl1.Controls.Add(this.tabPage8);
             this.tabControl1.Controls.Add(this.tabPage7);
             this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -344,14 +354,26 @@
             // tabPage2
             // 
             this.tabPage2.BackgroundImage = global::RipLeech.Properties.Resources.bg;
+            this.tabPage2.Controls.Add(this.button10);
             this.tabPage2.Controls.Add(this.button1);
             this.tabPage2.Location = new System.Drawing.Point(23, 4);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(205, 500);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Addons";
+            this.tabPage2.Text = "Plugins";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // button10
+            // 
+            this.button10.Location = new System.Drawing.Point(8, 35);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(189, 23);
+            this.button10.TabIndex = 1;
+            this.button10.Text = "Youtube Country Bypasser";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Visible = false;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
             // tabPage3
             // 
@@ -634,6 +656,70 @@
             this.listBox2.Size = new System.Drawing.Size(199, 494);
             this.listBox2.TabIndex = 0;
             // 
+            // tabPage8
+            // 
+            this.tabPage8.BackgroundImage = global::RipLeech.Properties.Resources.bg;
+            this.tabPage8.Controls.Add(this.progressBar1);
+            this.tabPage8.Controls.Add(this.label14);
+            this.tabPage8.Controls.Add(this.label13);
+            this.tabPage8.Controls.Add(this.button11);
+            this.tabPage8.Controls.Add(this.textBox4);
+            this.tabPage8.Controls.Add(this.listBox3);
+            this.tabPage8.Location = new System.Drawing.Point(23, 4);
+            this.tabPage8.Name = "tabPage8";
+            this.tabPage8.Size = new System.Drawing.Size(205, 500);
+            this.tabPage8.TabIndex = 7;
+            this.tabPage8.Text = "Get Addons";
+            this.tabPage8.UseVisualStyleBackColor = true;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(3, 2);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(90, 13);
+            this.label14.TabIndex = 4;
+            this.label14.Text = "Available Plugins:";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(3, 324);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(74, 13);
+            this.label13.TabIndex = 3;
+            this.label13.Text = "Plugin Details:";
+            // 
+            // button11
+            // 
+            this.button11.Location = new System.Drawing.Point(3, 458);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(199, 23);
+            this.button11.TabIndex = 2;
+            this.button11.Text = "Download Plugin";
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(3, 340);
+            this.textBox4.Multiline = true;
+            this.textBox4.Name = "textBox4";
+            this.textBox4.ReadOnly = true;
+            this.textBox4.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox4.Size = new System.Drawing.Size(199, 112);
+            this.textBox4.TabIndex = 1;
+            this.textBox4.Text = "Please select a plugin from above to get its details.";
+            // 
+            // listBox3
+            // 
+            this.listBox3.FormattingEnabled = true;
+            this.listBox3.Location = new System.Drawing.Point(3, 18);
+            this.listBox3.Name = "listBox3";
+            this.listBox3.Size = new System.Drawing.Size(199, 303);
+            this.listBox3.TabIndex = 0;
+            this.listBox3.SelectedIndexChanged += new System.EventHandler(this.listBox3_SelectedIndexChanged);
+            // 
             // tabPage7
             // 
             this.tabPage7.BackgroundImage = global::RipLeech.Properties.Resources.bg;
@@ -840,6 +926,13 @@
             this.timer3.Interval = 5000;
             this.timer3.Tick += new System.EventHandler(this.timer3_Tick);
             // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(6, 487);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(196, 10);
+            this.progressBar1.TabIndex = 5;
+            // 
             // transparentLabel1
             // 
             this.transparentLabel1.Location = new System.Drawing.Point(32, 19);
@@ -898,6 +991,8 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.tabPage5.ResumeLayout(false);
+            this.tabPage8.ResumeLayout(false);
+            this.tabPage8.PerformLayout();
             this.tabPage7.ResumeLayout(false);
             this.tabPage7.PerformLayout();
             this.tabPage6.ResumeLayout(false);
@@ -974,5 +1069,13 @@
         private System.Windows.Forms.ToolStripMenuItem restoreToolStripMenuItem;
         private System.Windows.Forms.TabPage tabPage7;
         private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.TabPage tabPage8;
+        private System.Windows.Forms.ListBox listBox3;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }

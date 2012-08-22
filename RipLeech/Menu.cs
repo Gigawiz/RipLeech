@@ -15,7 +15,9 @@ namespace RipLeech
 {
     public partial class Menu : Form
     {
-        string assembly = "";
+        string plugurl = null;
+        string assembly = null;
+        string plugindir = Directory.GetCurrentDirectory() + @"\Data\Addons\";
         public Menu()
         {
             InitializeComponent();
@@ -150,6 +152,23 @@ namespace RipLeech
             {
                 textBox3.Text = "Unable to get changelog at this time.";
             }
+            try
+            {
+                string updateurl = "http://nicoding.com/api.php?app=ripleech&plugin=all&info=name";
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(updateurl);
+                WebResponse response = request.GetResponse();
+                System.IO.StreamReader sr = new System.IO.StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("windows-1252"));
+                string pluginsavail = sr.ReadToEnd();
+                string[] lines = Regex.Split(pluginsavail, "<br>");
+                foreach (string line in lines)
+                {
+                    listBox3.Items.Add(line);
+                }
+            }
+            catch
+            {
+                listBox3.Items.Add("Unable to get plugins at this time.");
+            }
             if (!String.IsNullOrEmpty(RipLeech.Properties.Settings.Default.videosavepath))
             {
                 textBox1.Text = RipLeech.Properties.Settings.Default.videosavepath;
@@ -202,14 +221,30 @@ namespace RipLeech
                             string totalfilename = Path.GetFileNameWithoutExtension(fileName);
                             Button btnPlay = new Button();
                             btnPlay.Name = totalfilename;
-                            btnPlay.Top = button1.Top + 30;
-                            btnPlay.Left = button1.Left;
-                            btnPlay.Width = 189;
-                            btnPlay.Height = 23;
-                            btnPlay.Text = (btnPlay.Name.ToString());
-                            btnPlay.Click += new EventHandler(btnPlay_Click);
-                            tabPage2.Controls.Add(btnPlay);
-                            btnPlay.BringToFront();
+                            if (i <= 1)
+                            {
+                                btnPlay.Top = button1.Top + 30;
+                                btnPlay.Left = button1.Left;
+                                btnPlay.Width = 189;
+                                btnPlay.Height = 23;
+                                btnPlay.Text = (btnPlay.Name.ToString());
+                                btnPlay.Click += new EventHandler(btnPlay_Click);
+                                tabPage2.Controls.Add(btnPlay);
+                                btnPlay.BringToFront();
+                                i++;
+                            }
+                            else
+                            {
+                                int btntop = 30 * i;
+                                btnPlay.Top = button1.Top + btntop;
+                                btnPlay.Left = button1.Left;
+                                btnPlay.Width = 189;
+                                btnPlay.Height = 23;
+                                btnPlay.Text = (btnPlay.Name.ToString());
+                                btnPlay.Click += new EventHandler(btnPlay_Click);
+                                tabPage2.Controls.Add(btnPlay);
+                                btnPlay.BringToFront();
+                            }
                             i++;
                         }
                     }
@@ -522,6 +557,56 @@ namespace RipLeech
                     this.Hide();
                 }
             }
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            YoutubeCountryBypasser ycb = new YoutubeCountryBypasser();
+            ycb.Show();
+        }
+
+        private void listBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MessageBox.Show("Loading Addon Data! This may take a second.");
+            try
+            {
+                string plug = listBox3.SelectedItem.ToString();
+                string updateurl = "http://nicoding.com/api.php?app=ripleech&plugin=" + plug + "&info=about";
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(updateurl);
+                WebResponse response = request.GetResponse();
+                System.IO.StreamReader sr = new System.IO.StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("windows-1252"));
+                textBox4.Text = sr.ReadToEnd();
+                string plugindl = "http://nicoding.com/api.php?app=ripleech&plugin=" + plug + "&info=url";
+                HttpWebRequest request2 = (HttpWebRequest)WebRequest.Create(plugindl);
+                WebResponse response2 = request2.GetResponse();
+                System.IO.StreamReader sr2 = new System.IO.StreamReader(response2.GetResponseStream(), System.Text.Encoding.GetEncoding("windows-1252"));
+                plugurl = sr2.ReadToEnd();
+                assembly = plugurl.Substring(plugurl.LastIndexOf('/') + 1);
+            }
+            catch
+            {
+                textBox4.Text = "Unable to get details of that plugin!";
+            }
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            string saveto = plugindir + assembly;
+            WebClient client = new WebClient();
+            client.Encoding = System.Text.Encoding.UTF8;
+            Uri update = new Uri(plugurl);
+            client.DownloadFileAsync(update, saveto);
+            client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
+            client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
+        }
+        void client_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+            MessageBox.Show("Plugin Successfully Downloaded!\r\nPlease restart RipLeech to see your new plugin!");
+        }
+
+        void client_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
+            progressBar1.Value = e.ProgressPercentage;
         }
     }
 }

@@ -96,7 +96,7 @@ namespace RipLeech
                 System.IO.StreamReader sr = new System.IO.StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("windows-1252"));
                 string update = sr.ReadToEnd();
                 int build = Convert.ToInt32(update);
-                int thisbuild = 11;
+                int thisbuild = 12;
                 if (build > thisbuild)
                 {
                     label2.Visible = true;

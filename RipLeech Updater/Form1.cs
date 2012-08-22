@@ -28,7 +28,24 @@ namespace RipLeech_Updater
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            dlfiles();
+            getnews();
+        }
+        private void getnews()
+        {
+            string newsurl = "https://dl.dropbox.com/u/22054429/RipLeech/update_news.txt";
+            try
+            {
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(newsurl);
+                WebResponse response = request.GetResponse();
+                System.IO.StreamReader sr = new System.IO.StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("windows-1252"));
+                textBox1.Text = sr.ReadToEnd();
+                dlfiles();
+            }
+            catch
+            {
+                textBox1.Text = "Unable to get update news at this time.";
+                dlfiles();
+            }
         }
         private Queue<string> _downloadUrls = new Queue<string>();
         private void dlfiles()
