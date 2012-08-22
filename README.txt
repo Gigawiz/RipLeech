@@ -1,6 +1,11 @@
 RipLeech is designed to allow you to download YouTube videos to your hard drive in mp3 or mp4 format.
 
 *Changelog*
+V3.2a
+Fixed a major bug where ffmpeg would not convert audio correctly.
+Added changelog to main window.
+Added Conversion log
+
 V3.1A
 Recoded entire user system/layout/plugin system
 Started adding queue and playlist downloader

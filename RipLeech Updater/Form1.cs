@@ -11,10 +11,12 @@ using System.Diagnostics;
 using System.Net;
 using System.Text.RegularExpressions;
 
+
 namespace RipLeech_Updater
 {
     public partial class Form1 : Form
     {
+        string installdir = Directory.GetCurrentDirectory();
         string filedling = null;
         int count = 0;
         int done = 0;
@@ -66,8 +68,9 @@ namespace RipLeech_Updater
         }
         private void end()
         {
+
             Process.Start("RipLeech.exe");
-                Environment.Exit(0);
+            Environment.Exit(0);
         }
 
         private void DownloadFile()

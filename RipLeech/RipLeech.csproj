@@ -37,6 +37,9 @@
   <PropertyGroup>
     <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Google.GData.Client">
       <HintPath>..\..\TubeRip\TubeRip\bin\Release\Google.GData.Client.dll</HintPath>
@@ -54,6 +57,7 @@
       <HintPath>..\..\TubeRip\TubeRip\bin\Release\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web">
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.Web.dll</HintPath>
@@ -72,6 +76,7 @@
     <Compile Include="AudioDownloader.cs" />
     <Compile Include="BigEndianBitConverter.cs" />
     <Compile Include="BitHelper.cs" />
+    <Compile Include="converter.cs" />
     <Compile Include="Downloader.cs" />
     <Compile Include="DownloadUrlResolver.cs" />
     <Compile Include="FlvFile.cs" />
@@ -138,6 +143,7 @@
       <DependentUpon>youtube.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
+    <None Include="app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

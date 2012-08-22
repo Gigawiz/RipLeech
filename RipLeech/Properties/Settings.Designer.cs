@@ -154,5 +154,17 @@ namespace RipLeech.Properties {
                 this["ytqueue"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ffmpeg {
+            get {
+                return ((bool)(this["ffmpeg"]));
+            }
+            set {
+                this["ffmpeg"] = value;
+            }
+        }
     }
 }

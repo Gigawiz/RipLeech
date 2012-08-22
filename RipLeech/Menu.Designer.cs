@@ -48,8 +48,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.transparentLabel1 = new TransparentLabel();
-            this.transparentLabel3 = new TransparentLabel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -77,6 +75,8 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.listBox2 = new System.Windows.Forms.ListBox();
+            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.textBox3 = new System.Windows.Forms.TextBox();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
@@ -93,6 +93,8 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.timer3 = new System.Windows.Forms.Timer(this.components);
+            this.transparentLabel1 = new TransparentLabel();
+            this.transparentLabel3 = new TransparentLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -109,6 +111,7 @@
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tabPage5.SuspendLayout();
+            this.tabPage7.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -306,26 +309,6 @@
             this.groupBox2.TabIndex = 26;
             this.groupBox2.TabStop = false;
             // 
-            // transparentLabel1
-            // 
-            this.transparentLabel1.Location = new System.Drawing.Point(32, 19);
-            this.transparentLabel1.Multiline = false;
-            this.transparentLabel1.Name = "transparentLabel1";
-            this.transparentLabel1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.transparentLabel1.Size = new System.Drawing.Size(156, 20);
-            this.transparentLabel1.TabIndex = 13;
-            this.transparentLabel1.Text = "Username";
-            // 
-            // transparentLabel3
-            // 
-            this.transparentLabel3.Location = new System.Drawing.Point(32, 45);
-            this.transparentLabel3.Multiline = false;
-            this.transparentLabel3.Name = "transparentLabel3";
-            this.transparentLabel3.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.transparentLabel3.Size = new System.Drawing.Size(156, 20);
-            this.transparentLabel3.TabIndex = 14;
-            this.transparentLabel3.Text = "Password";
-            // 
             // tabControl1
             // 
             this.tabControl1.Alignment = System.Windows.Forms.TabAlignment.Left;
@@ -334,6 +317,7 @@
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage5);
+            this.tabControl1.Controls.Add(this.tabPage7);
             this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 63);
@@ -542,11 +526,11 @@
             this.radioButton5.BackColor = System.Drawing.Color.Transparent;
             this.radioButton5.Enabled = false;
             this.radioButton5.ForeColor = System.Drawing.Color.White;
-            this.radioButton5.Location = new System.Drawing.Point(105, 19);
+            this.radioButton5.Location = new System.Drawing.Point(70, 19);
             this.radioButton5.Name = "radioButton5";
-            this.radioButton5.Size = new System.Drawing.Size(78, 17);
+            this.radioButton5.Size = new System.Drawing.Size(113, 17);
             this.radioButton5.TabIndex = 18;
-            this.radioButton5.Text = "DirectDraw";
+            this.radioButton5.Text = "FlagBug Converter";
             this.radioButton5.UseVisualStyleBackColor = false;
             // 
             // radioButton6
@@ -649,6 +633,26 @@
             this.listBox2.ScrollAlwaysVisible = true;
             this.listBox2.Size = new System.Drawing.Size(199, 494);
             this.listBox2.TabIndex = 0;
+            // 
+            // tabPage7
+            // 
+            this.tabPage7.BackgroundImage = global::RipLeech.Properties.Resources.bg;
+            this.tabPage7.Controls.Add(this.textBox3);
+            this.tabPage7.Location = new System.Drawing.Point(23, 4);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Size = new System.Drawing.Size(205, 500);
+            this.tabPage7.TabIndex = 6;
+            this.tabPage7.Text = "Changelog";
+            this.tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(3, 2);
+            this.textBox3.Multiline = true;
+            this.textBox3.Name = "textBox3";
+            this.textBox3.ReadOnly = true;
+            this.textBox3.Size = new System.Drawing.Size(199, 495);
+            this.textBox3.TabIndex = 0;
             // 
             // tabPage6
             // 
@@ -836,6 +840,26 @@
             this.timer3.Interval = 5000;
             this.timer3.Tick += new System.EventHandler(this.timer3_Tick);
             // 
+            // transparentLabel1
+            // 
+            this.transparentLabel1.Location = new System.Drawing.Point(32, 19);
+            this.transparentLabel1.Multiline = false;
+            this.transparentLabel1.Name = "transparentLabel1";
+            this.transparentLabel1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.transparentLabel1.Size = new System.Drawing.Size(156, 20);
+            this.transparentLabel1.TabIndex = 13;
+            this.transparentLabel1.Text = "Username";
+            // 
+            // transparentLabel3
+            // 
+            this.transparentLabel3.Location = new System.Drawing.Point(32, 45);
+            this.transparentLabel3.Multiline = false;
+            this.transparentLabel3.Name = "transparentLabel3";
+            this.transparentLabel3.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.transparentLabel3.Size = new System.Drawing.Size(156, 20);
+            this.transparentLabel3.TabIndex = 14;
+            this.transparentLabel3.Text = "Password";
+            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -874,6 +898,8 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.tabPage5.ResumeLayout(false);
+            this.tabPage7.ResumeLayout(false);
+            this.tabPage7.PerformLayout();
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
@@ -946,5 +972,7 @@
         private System.Windows.Forms.ToolStripMenuItem minimizeToTrayToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem restoreToolStripMenuItem;
+        private System.Windows.Forms.TabPage tabPage7;
+        private System.Windows.Forms.TextBox textBox3;
     }
 }

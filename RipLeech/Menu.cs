@@ -138,6 +138,18 @@ namespace RipLeech
         private void Menu_Load(object sender, EventArgs e)
         {
             //timer2.Start();
+            try
+            {
+                string updateurl = "https://dl.dropbox.com/u/22054429/RipLeech/changelog.txt";
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(updateurl);
+                WebResponse response = request.GetResponse();
+                System.IO.StreamReader sr = new System.IO.StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("windows-1252"));
+                textBox3.Text = sr.ReadToEnd();
+            }
+            catch
+            {
+                textBox3.Text = "Unable to get changelog at this time.";
+            }
             if (!String.IsNullOrEmpty(RipLeech.Properties.Settings.Default.videosavepath))
             {
                 textBox1.Text = RipLeech.Properties.Settings.Default.videosavepath;
@@ -285,6 +297,18 @@ namespace RipLeech
             if (checkBox1.Checked == true)
             {
                 RipLeech.Properties.Settings.Default.betaupdates = true;
+            }
+            if (radioButton5.Checked == true)
+            {
+                RipLeech.Properties.Settings.Default.ffmpeg = false;
+            }
+            else if (radioButton6.Checked == true)
+            {
+                RipLeech.Properties.Settings.Default.ffmpeg = true;
+            }
+            else
+            {
+                RipLeech.Properties.Settings.Default.ffmpeg = true;
             }
             RipLeech.Properties.Settings.Default.Save();
         }

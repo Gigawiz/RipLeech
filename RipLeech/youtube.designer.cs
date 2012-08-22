@@ -51,6 +51,7 @@
             this.button3 = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button6 = new System.Windows.Forms.Button();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
@@ -71,6 +72,9 @@
             this.button5 = new System.Windows.Forms.Button();
             this.label19 = new System.Windows.Forms.Label();
             this.progressBar2 = new System.Windows.Forms.ProgressBar();
+            this.cmbSubService = new System.Windows.Forms.ComboBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -292,6 +296,7 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox1.Controls.Add(this.button6);
             this.groupBox1.Controls.Add(this.label17);
             this.groupBox1.Controls.Add(this.label18);
             this.groupBox1.Controls.Add(this.button4);
@@ -312,6 +317,18 @@
             this.groupBox1.TabIndex = 22;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Download Info:";
+            // 
+            // button6
+            // 
+            this.button6.ForeColor = System.Drawing.Color.Black;
+            this.button6.Location = new System.Drawing.Point(135, 75);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(118, 23);
+            this.button6.TabIndex = 13;
+            this.button6.Text = "View Conversion Log";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Visible = false;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // label17
             // 
@@ -480,9 +497,9 @@
             // textBox3
             // 
             this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox3.Location = new System.Drawing.Point(414, 42);
+            this.textBox3.Location = new System.Drawing.Point(451, 42);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(151, 20);
+            this.textBox3.Size = new System.Drawing.Size(114, 20);
             this.textBox3.TabIndex = 25;
             this.textBox3.Visible = false;
             this.textBox3.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox3_KeyDown);
@@ -490,11 +507,11 @@
             // button5
             // 
             this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button5.Location = new System.Drawing.Point(459, 68);
+            this.button5.Location = new System.Drawing.Point(571, 66);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(106, 23);
+            this.button5.Size = new System.Drawing.Size(73, 23);
             this.button5.TabIndex = 26;
-            this.button5.Text = "Download Playlist";
+            this.button5.Text = "Get Playlists";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Visible = false;
             this.button5.Click += new System.EventHandler(this.button5_Click);
@@ -505,11 +522,11 @@
             this.label19.AutoSize = true;
             this.label19.BackColor = System.Drawing.Color.Transparent;
             this.label19.ForeColor = System.Drawing.Color.Black;
-            this.label19.Location = new System.Drawing.Point(400, 24);
+            this.label19.Location = new System.Drawing.Point(400, 45);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(56, 13);
+            this.label19.Size = new System.Drawing.Size(46, 13);
             this.label19.TabIndex = 27;
-            this.label19.Text = "Playlist ID:";
+            this.label19.Text = "User ID:";
             this.label19.Visible = false;
             // 
             // progressBar2
@@ -519,6 +536,38 @@
             this.progressBar2.Size = new System.Drawing.Size(406, 10);
             this.progressBar2.TabIndex = 28;
             // 
+            // cmbSubService
+            // 
+            this.cmbSubService.FormattingEnabled = true;
+            this.cmbSubService.Location = new System.Drawing.Point(451, 68);
+            this.cmbSubService.Name = "cmbSubService";
+            this.cmbSubService.Size = new System.Drawing.Size(114, 21);
+            this.cmbSubService.TabIndex = 29;
+            this.cmbSubService.Visible = false;
+            this.cmbSubService.SelectedIndexChanged += new System.EventHandler(this.cmbSubService_SelectedIndexChanged);
+            // 
+            // label20
+            // 
+            this.label20.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label20.AutoSize = true;
+            this.label20.BackColor = System.Drawing.Color.Transparent;
+            this.label20.ForeColor = System.Drawing.Color.Black;
+            this.label20.Location = new System.Drawing.Point(400, 71);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(47, 13);
+            this.label20.TabIndex = 30;
+            this.label20.Text = "Playlists:";
+            this.label20.Visible = false;
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(467, 516);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(56, 17);
+            this.listBox1.TabIndex = 31;
+            this.listBox1.Visible = false;
+            // 
             // youtube
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -526,6 +575,9 @@
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImage = global::RipLeech.Properties.Resources.bg;
             this.ClientSize = new System.Drawing.Size(944, 532);
+            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.label20);
+            this.Controls.Add(this.cmbSubService);
             this.Controls.Add(this.progressBar2);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.button5);
@@ -605,5 +657,9 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.ProgressBar progressBar2;
+        private System.Windows.Forms.ComboBox cmbSubService;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Button button6;
     }
 }
