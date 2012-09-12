@@ -23,6 +23,7 @@ namespace RipLeech
 {
     public partial class youtube : Form
     {
+        string vidid2 = null;
         string root = @"C:\RipLeech\Temp\";
         string ffmpeg = @"C:\RipLeech";
         string viddling = "";
@@ -466,6 +467,15 @@ namespace RipLeech
         private void listView1_ItemActivate(object sender, EventArgs e)
         {
             string focused = listView1.FocusedItem.SubItems[3].Text;
+            try
+            {
+                string searchupd = "http://nicoding.com/api.php?app=ripleech&updtrend=video&id=" + focused + "&name=" + listView1.FocusedItem.SubItems[0].Text;
+                 HttpWebRequest searchreq = (HttpWebRequest)WebRequest.Create(searchupd);
+                 WebResponse searchres = searchreq.GetResponse();
+                 System.IO.StreamReader sr = new System.IO.StreamReader(searchres.GetResponseStream(), System.Text.Encoding.GetEncoding("windows-1252"));
+                 string pluginsavail = sr.ReadToEnd();
+            }
+            catch { }
             listView1.Items.Clear();
             getstuff(focused);
             textBox1.Text = focused;
@@ -474,6 +484,15 @@ namespace RipLeech
         private void listView1_ItemActivate_1(object sender, EventArgs e)
         {
             string focused = listView1.FocusedItem.SubItems[3].Text;
+            try
+            {
+                string searchupd = "http://nicoding.com/api.php?app=ripleech&updtrend=video&id=" + focused + "&name=" + listView1.FocusedItem.SubItems[0].Text;
+                HttpWebRequest searchreq = (HttpWebRequest)WebRequest.Create(searchupd);
+                WebResponse searchres = searchreq.GetResponse();
+                System.IO.StreamReader sr = new System.IO.StreamReader(searchres.GetResponseStream(), System.Text.Encoding.GetEncoding("windows-1252"));
+                string pluginsavail = sr.ReadToEnd();
+            }
+            catch { }
             listView1.Items.Clear();
             getstuff(focused);
             textBox1.Text = focused;
@@ -481,6 +500,8 @@ namespace RipLeech
 
         private void mainpage_Load(object sender, EventArgs e)
         {
+            timer3.Start();
+            timer4.Start();
             if (!Directory.Exists(root))
             {
                 Directory.CreateDirectory(root);
@@ -497,7 +518,16 @@ namespace RipLeech
 
         private void button3_Click(object sender, EventArgs e)
         {
-            label5.Text = "Search Results:"; 
+            label5.Text = "Search Results:";
+            try
+            {
+                string searchupd = "http://nicoding.com/api.php?app=ripleech&updtrend=search&term=" + textBox2.Text;
+                HttpWebRequest searchreq = (HttpWebRequest)WebRequest.Create(searchupd);
+                WebResponse searchres = searchreq.GetResponse();
+                System.IO.StreamReader sr = new System.IO.StreamReader(searchres.GetResponseStream(), System.Text.Encoding.GetEncoding("windows-1252"));
+                string pluginsavail = sr.ReadToEnd();
+            }
+            catch { }
             listView1.Items.Clear();
             YouTubeRequest request = new YouTubeRequest(settings);
             YouTubeQuery query = new YouTubeQuery(YouTubeQuery.DefaultVideoUri);
@@ -618,6 +648,40 @@ namespace RipLeech
             else
             {
                 MessageBox.Show("It seems that the FFMPEG log did not save!");
+            }
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            recents trending = new recents();
+            trending.Show();
+        }
+
+        private void timer3_Tick(object sender, EventArgs e)
+        {
+            if (File.Exists(@"C:\RipLeech\Temp\newvid.tmp"))
+            {
+                string vidid = File.ReadAllText(@"C:\RipLeech\Temp\newvid.tmp");
+                if (vidid != Environment.NewLine)
+                {
+                    getstuff(vidid);
+                    textBox1.Text = vidid;
+                    File.WriteAllText(@"C:\RipLeech\Temp\newvid.tmp", Environment.NewLine);
+                }
+            }
+        }
+
+        private void timer4_Tick(object sender, EventArgs e)
+        {
+            if (File.Exists(@"C:\RipLeech\Temp\newsearch.tmp"))
+            {
+                vidid2 = File.ReadAllText(@"C:\RipLeech\Temp\newsearch.tmp");
+                if (vidid2 != Environment.NewLine)
+                {
+                    textBox2.Text = vidid2;
+                    File.WriteAllText(@"C:\RipLeech\Temp\newsearch.tmp", Environment.NewLine);
+                    button3_Click((object)sender, (EventArgs)e);
+                }
             }
         }
     }

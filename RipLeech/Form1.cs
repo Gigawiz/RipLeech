@@ -96,7 +96,7 @@ namespace RipLeech
                 System.IO.StreamReader sr = new System.IO.StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("windows-1252"));
                 string update = sr.ReadToEnd();
                 int build = Convert.ToInt32(update);
-                int thisbuild = 12;
+                int thisbuild = 13;
                 if (build > thisbuild)
                 {
                     label2.Visible = true;
@@ -117,9 +117,9 @@ namespace RipLeech
                     }
                     else
                     {
-                        Menu home = new Menu();
-                        home.Show();
-                        this.Dispose(false);
+                            Menu home = new Menu();
+                            home.Show();
+                            this.Dispose(false);
                     }
                 }
                 else
@@ -132,9 +132,17 @@ namespace RipLeech
                     }
                     else
                     {
-                        Menu home = new Menu();
-                        home.Show();
-                        this.Dispose(false);
+                        if (File.Exists(@"C:\Program Files\NiCoding\RipLeech\double.update"))
+                        {
+                            Process.Start(@"C:\Program Files\NiCoding\RipLeech\updater.exe");
+                            Environment.Exit(0);
+                        }
+                        else
+                        {
+                            Menu home = new Menu();
+                            home.Show();
+                            this.Dispose(false);
+                        }
                     }
                 }
             }

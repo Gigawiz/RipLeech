@@ -10,13 +10,15 @@ using System.IO;
 using System.Diagnostics;
 using System.Net;
 using System.Text.RegularExpressions;
+using Microsoft.Win32;
+using IWshRuntimeLibrary;
 
 
 namespace RipLeech_Updater
 {
     public partial class Form1 : Form
     {
-        string installdir = Directory.GetCurrentDirectory();
+        string installfolder = @"C:\Program Files\NiCoding\RipLeech\";
         string filedling = null;
         int count = 0;
         int done = 0;
@@ -51,11 +53,11 @@ namespace RipLeech_Updater
         private void dlfiles()
         {
             string updateurl = null;
-            if (File.Exists("beta.lock"))
+            if (System.IO.File.Exists(installfolder + "beta.lock"))
             {
                 updateurl = "https://dl.dropbox.com/u/22054429/RipLeech/beta_filelist.txt";
             }
-            else if (File.Exists("update.lock"))
+            else if (System.IO.File.Exists(installfolder + "update.lock"))
             {
                 updateurl = "https://dl.dropbox.com/u/22054429/RipLeech/update_filelist.txt";
             }
@@ -85,8 +87,27 @@ namespace RipLeech_Updater
         }
         private void end()
         {
-
-            Process.Start("RipLeech.exe");
+            if (System.IO.File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\RipLeech.ink"))
+            {
+                System.IO.File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\RipLeech.ink");
+            }
+            if (MessageBox.Show("Do you want the TubeRip Chrome Plugin?", "Chrome Addon", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                string dir2 = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\RipLeech.crx";
+                System.IO.File.WriteAllBytes(dir2, RipLeech_Updater.Properties.Resources.ripleech);
+                MessageBox.Show("A file called 'RipLeech.crx' has been created on your desktop. Open chrome, go to tools --> settings --> extensions and drag the file named 'RipLeech.crx' from your desktop into the window.");
+            }
+            #region shortcut installer
+            object shDesktop = (object)"Desktop";
+            WshShell shell = new WshShell();
+            string shortcutAddress = (string)shell.SpecialFolders.Item(ref shDesktop) + @"\RipLeech.lnk";
+            IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutAddress);
+            shortcut.Description = "RipLeech";
+            shortcut.TargetPath = installfolder;
+            shortcut.TargetPath = installfolder + "RipLeech.exe";
+            shortcut.Save();
+            #endregion
+            Process.Start(installfolder + "RipLeech.exe");
             Environment.Exit(0);
         }
 
@@ -102,8 +123,7 @@ namespace RipLeech_Updater
                 string FileName = url.Substring(url.LastIndexOf("/") + 1,
                             (url.Length - url.LastIndexOf("/") - 1));
                 string filepath = GetParentUriString(new Uri(url));
-                string uril2 = filepath.Replace("https://dl.dropbox.com/u/22054429/RipLeech/", "").Replace("/", @"\");
-                //MessageBox.Show(uril2);
+                string uril2 = filepath.Replace("https://dl.dropbox.com/u/22054429/RipLeech/", installfolder).Replace("/", @"\");
                 if (!String.IsNullOrEmpty(uril2))
                 {
                     if (!Directory.Exists(uril2))

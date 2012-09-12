@@ -1,0 +1,15 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\RipLeech]
+@="\"URL:RipLeech Protocol\""
+"URL Protocol"="\"\""
+
+[HKEY_CLASSES_ROOT\RipLeech\DefaultIcon]
+@="\"ripleech.exe,1\""
+
+[HKEY_CLASSES_ROOT\RipLeech\shell]
+
+[HKEY_CLASSES_ROOT\RipLeech\shell\open]
+
+[HKEY_CLASSES_ROOT\RipLeech\shell\open\command]
+@="\"C:\\Program Files\\NiCoding\\RipLeech\\RipLeech_Helper.exe\" \"%1\""

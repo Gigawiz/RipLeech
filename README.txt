@@ -1,6 +1,12 @@
 RipLeech is designed to allow you to download YouTube videos to your hard drive in mp3 or mp4 format.
 
 *Changelog*
+V3.4A
+Added ripleech protocol. Simply place ripleech:// before your youtube link to open the downloader
+Moved ripleech install folder to C:\Program Files\NiCoding\Ripleech.
+Added Trending Videos & Searches to Youtube
+Created chrome plugin for RipLeech
+
 V3.3A
 Fixed Plugin System, Now 100% Functional
 Added update news to updater

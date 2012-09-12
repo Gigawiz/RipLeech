@@ -17,7 +17,7 @@ namespace RipLeech
     {
         string plugurl = null;
         string assembly = null;
-        string plugindir = Directory.GetCurrentDirectory() + @"\Data\Addons\";
+        string plugindir = @"C:\Program Files\NiCoding\RipLeech\Data\Addons\";
         public Menu()
         {
             InitializeComponent();
@@ -25,6 +25,18 @@ namespace RipLeech
 
         private void Menu_FormClosing(object sender, FormClosingEventArgs e)
         {
+            try
+            {
+                if (File.Exists(@"C:\RipLeech\Temp\newvid.tmp"))
+                {
+                    File.Delete(@"C:\RipLeech\Temp\newvid.tmp");
+                }
+                if (File.Exists(@"C:\RipLeech\Temp\newsearch.tmp"))
+                {
+                    File.Delete(@"C:\RipLeech\Temp\newsearch.tmp");
+                }
+            }
+            catch { }
             RipLeech.Properties.Settings.Default.loggedinuser = "";
             RipLeech.Properties.Settings.Default.ytqueue = "";
             RipLeech.Properties.Settings.Default.Save();
@@ -139,6 +151,10 @@ namespace RipLeech
 
         private void Menu_Load(object sender, EventArgs e)
         {
+            if (!Directory.Exists(@"C:\RipLeech\Temp\"))
+            {
+                Directory.CreateDirectory(@"C:\RipLeech\Temp\");
+            }
             //timer2.Start();
             try
             {
@@ -205,14 +221,18 @@ namespace RipLeech
                 File.Copy("updater.temp", "updater.exe");
                 File.Delete("updater.temp");
             }
+            if (!Directory.Exists(plugindir))
+            {
+                Directory.CreateDirectory(plugindir);
+            }
             #region checkforaddons
             try
             {
-                string[] fileEntries = Directory.GetFiles(Directory.GetCurrentDirectory() + @"\Data\Addons\", "*.dll");
-                DirectoryInfo addonnfo = new DirectoryInfo(Directory.GetCurrentDirectory() + @"\Data\Addons");
+                string[] fileEntries = Directory.GetFiles(plugindir, "*.dll");
+                DirectoryInfo addonnfo = new DirectoryInfo(plugindir);
                 if (addonnfo.Exists)
                 {
-                    if (IsDirectoryEmpty(Directory.GetCurrentDirectory() + @"\Data\Addons") == false)
+                    if (IsDirectoryEmpty(plugindir) == false)
                     {
                         int i = 0;
                         foreach (string fileName in fileEntries)
@@ -250,17 +270,49 @@ namespace RipLeech
                     }
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
             #endregion
+            if (File.Exists(@"C:\RipLeech\Temp\newvid.tmp"))
+            {
+                youtube yt = new youtube();
+                yt.Show();
+            }
+            if (RipLeech.Properties.Settings.Default.surveyshown == false)
+            {
+                survey srvy = new survey();
+                srvy.Show();
+            }
+            /*
+            #region regstuff
+            //here we write the reg file for the protocol.
+            string dir = @"C:\RipLeech\Temp\protocol.reg";
+            if (RipLeech.Properties.Settings.Default.reginstalled == false)
+            {
+                if (!File.Exists(dir))
+                {
+                    System.IO.File.WriteAllText(dir, RipLeech.Properties.Resources.protocol);
+                    Process regeditProcess = Process.Start("regedit.exe", "/s " + dir);
+                    regeditProcess.WaitForExit();
+                    if (System.IO.File.Exists(dir))
+                    {
+                        System.IO.File.Delete(dir);
+                    }
+                    RipLeech.Properties.Settings.Default.reginstalled = true;
+                    RipLeech.Properties.Settings.Default.Save();
+                    restart();
+                }
+            }
+            #endregion*/
         }
-
+        void restart()
+        {
+            Process.Start(@"C:\Program Files\NiCoding\RipLeech\RipLeech.exe"); // to start new instance of application
+            Environment.Exit(0); //to turn off current app
+        }
         void btnPlay_Click(object sender, EventArgs e)
         {
             Button clickedItem = (Button)sender;
-            string fileopenloc = Directory.GetCurrentDirectory() + @"\Data\Addons\" + clickedItem.Name + ".dll";
+            string fileopenloc = plugindir + clickedItem.Name + ".dll";
             string formname = clickedItem.Name + ".Form1";
             System.Reflection.Assembly extAssembly = System.Reflection.Assembly.LoadFrom(fileopenloc);
             Form extForm = (Form)extAssembly.CreateInstance(formname, true);
@@ -364,7 +416,7 @@ namespace RipLeech
                 if (saveresult == DialogResult.OK)
                 {
                     ProcessStartInfo psi = new ProcessStartInfo();
-                    string startdir = Application.StartupPath;
+                    string startdir = @"C:\Program Files\NiCoding\RipLeech\";
                     if (Environment.Is64BitOperatingSystem)
                     {
                         psi.FileName = startdir + @"\Data\ffmpeg-64.exe";
@@ -409,7 +461,7 @@ namespace RipLeech
                 if (saveresult == DialogResult.OK)
                 {
                     ProcessStartInfo psi = new ProcessStartInfo();
-                    string startdir = Application.StartupPath;
+                    string startdir = @"C:\Program Files\NiCoding\RipLeech\";
                     if (Environment.Is64BitOperatingSystem)
                     {
                         psi.FileName = startdir + @"\Data\ffmpeg-64.exe";
@@ -453,7 +505,7 @@ namespace RipLeech
                 if (saveresult == DialogResult.OK)
                 {
                     ProcessStartInfo psi = new ProcessStartInfo();
-                    string startdir = Application.StartupPath;
+                    string startdir = @"C:\Program Files\NiCoding\RipLeech\";
                     if (Environment.Is64BitOperatingSystem)
                     {
                         psi.FileName = startdir + @"\Data\ffmpeg-64.exe";
@@ -607,6 +659,12 @@ namespace RipLeech
         void client_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
             progressBar1.Value = e.ProgressPercentage;
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            chatbox chat = new chatbox();
+            chat.Show();
         }
     }
 }

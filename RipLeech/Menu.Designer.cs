@@ -48,8 +48,11 @@
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.transparentLabel1 = new TransparentLabel();
+            this.transparentLabel3 = new TransparentLabel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button12 = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.button10 = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -77,6 +80,7 @@
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.button11 = new System.Windows.Forms.Button();
@@ -100,9 +104,6 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.timer3 = new System.Windows.Forms.Timer(this.components);
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.transparentLabel1 = new TransparentLabel();
-            this.transparentLabel3 = new TransparentLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -318,6 +319,26 @@
             this.groupBox2.TabIndex = 26;
             this.groupBox2.TabStop = false;
             // 
+            // transparentLabel1
+            // 
+            this.transparentLabel1.Location = new System.Drawing.Point(32, 19);
+            this.transparentLabel1.Multiline = false;
+            this.transparentLabel1.Name = "transparentLabel1";
+            this.transparentLabel1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.transparentLabel1.Size = new System.Drawing.Size(156, 20);
+            this.transparentLabel1.TabIndex = 13;
+            this.transparentLabel1.Text = "Username";
+            // 
+            // transparentLabel3
+            // 
+            this.transparentLabel3.Location = new System.Drawing.Point(32, 45);
+            this.transparentLabel3.Multiline = false;
+            this.transparentLabel3.Name = "transparentLabel3";
+            this.transparentLabel3.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.transparentLabel3.Size = new System.Drawing.Size(156, 20);
+            this.transparentLabel3.TabIndex = 14;
+            this.transparentLabel3.Text = "Password";
+            // 
             // tabControl1
             // 
             this.tabControl1.Alignment = System.Windows.Forms.TabAlignment.Left;
@@ -340,6 +361,7 @@
             // tabPage1
             // 
             this.tabPage1.BackgroundImage = global::RipLeech.Properties.Resources.bg;
+            this.tabPage1.Controls.Add(this.button12);
             this.tabPage1.Controls.Add(this.groupBox2);
             this.tabPage1.Controls.Add(this.pictureBox5);
             this.tabPage1.Controls.Add(this.groupBox1);
@@ -350,6 +372,16 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Home";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // button12
+            // 
+            this.button12.Location = new System.Drawing.Point(3, 142);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(194, 23);
+            this.button12.TabIndex = 27;
+            this.button12.Text = "Chatbox";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
             // tabPage2
             // 
@@ -672,6 +704,13 @@
             this.tabPage8.Text = "Get Addons";
             this.tabPage8.UseVisualStyleBackColor = true;
             // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(6, 487);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(196, 10);
+            this.progressBar1.TabIndex = 5;
+            // 
             // label14
             // 
             this.label14.AutoSize = true;
@@ -926,33 +965,6 @@
             this.timer3.Interval = 5000;
             this.timer3.Tick += new System.EventHandler(this.timer3_Tick);
             // 
-            // progressBar1
-            // 
-            this.progressBar1.Location = new System.Drawing.Point(6, 487);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(196, 10);
-            this.progressBar1.TabIndex = 5;
-            // 
-            // transparentLabel1
-            // 
-            this.transparentLabel1.Location = new System.Drawing.Point(32, 19);
-            this.transparentLabel1.Multiline = false;
-            this.transparentLabel1.Name = "transparentLabel1";
-            this.transparentLabel1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.transparentLabel1.Size = new System.Drawing.Size(156, 20);
-            this.transparentLabel1.TabIndex = 13;
-            this.transparentLabel1.Text = "Username";
-            // 
-            // transparentLabel3
-            // 
-            this.transparentLabel3.Location = new System.Drawing.Point(32, 45);
-            this.transparentLabel3.Multiline = false;
-            this.transparentLabel3.Name = "transparentLabel3";
-            this.transparentLabel3.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.transparentLabel3.Size = new System.Drawing.Size(156, 20);
-            this.transparentLabel3.TabIndex = 14;
-            this.transparentLabel3.Text = "Password";
-            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1077,5 +1089,6 @@
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Button button12;
     }
 }

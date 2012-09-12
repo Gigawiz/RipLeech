@@ -75,6 +75,9 @@
             this.cmbSubService = new System.Windows.Forms.ComboBox();
             this.label20 = new System.Windows.Forms.Label();
             this.listBox1 = new System.Windows.Forms.ListBox();
+            this.button7 = new System.Windows.Forms.Button();
+            this.timer3 = new System.Windows.Forms.Timer(this.components);
+            this.timer4 = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -562,11 +565,30 @@
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(467, 516);
+            this.listBox1.Location = new System.Drawing.Point(436, 356);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(56, 17);
             this.listBox1.TabIndex = 31;
             this.listBox1.Visible = false;
+            // 
+            // button7
+            // 
+            this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button7.Location = new System.Drawing.Point(790, 11);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(142, 23);
+            this.button7.TabIndex = 32;
+            this.button7.Text = "Trending On RipLeech  >>";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // timer3
+            // 
+            this.timer3.Tick += new System.EventHandler(this.timer3_Tick);
+            // 
+            // timer4
+            // 
+            this.timer4.Tick += new System.EventHandler(this.timer4_Tick);
             // 
             // youtube
             // 
@@ -575,6 +597,7 @@
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImage = global::RipLeech.Properties.Resources.bg;
             this.ClientSize = new System.Drawing.Size(944, 532);
+            this.Controls.Add(this.button7);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.label20);
             this.Controls.Add(this.cmbSubService);
@@ -661,5 +684,8 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Timer timer3;
+        private System.Windows.Forms.Timer timer4;
     }
 }

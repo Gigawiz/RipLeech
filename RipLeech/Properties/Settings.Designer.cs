@@ -166,5 +166,29 @@ namespace RipLeech.Properties {
                 this["ffmpeg"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool surveyshown {
+            get {
+                return ((bool)(this["surveyshown"]));
+            }
+            set {
+                this["surveyshown"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool reginstalled {
+            get {
+                return ((bool)(this["reginstalled"]));
+            }
+            set {
+                this["reginstalled"] = value;
+            }
+        }
     }
 }

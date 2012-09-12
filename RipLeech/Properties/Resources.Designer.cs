@@ -116,6 +116,30 @@ namespace RipLeech.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Windows Registry Editor Version 5.00
+        ///
+        ///[HKEY_CLASSES_ROOT\RipLeech]
+        ///@=&quot;\&quot;URL:RipLeech Protocol\&quot;&quot;
+        ///&quot;URL Protocol&quot;=&quot;\&quot;\&quot;&quot;
+        ///
+        ///[HKEY_CLASSES_ROOT\RipLeech\DefaultIcon]
+        ///@=&quot;\&quot;ripleech.exe,1\&quot;&quot;
+        ///
+        ///[HKEY_CLASSES_ROOT\RipLeech\shell]
+        ///
+        ///[HKEY_CLASSES_ROOT\RipLeech\shell\open]
+        ///
+        ///[HKEY_CLASSES_ROOT\RipLeech\shell\open\command]
+        ///@=&quot;\&quot;C:\\Program Files\\NiCoding\\RipLeech\\RipLeech_Helper.exe\&quot; \&quot;%1\&quot;&quot;
+        ///.
+        /// </summary>
+        internal static string protocol {
+            get {
+                return ResourceManager.GetString("protocol", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap userimg {
             get {
                 object obj = ResourceManager.GetObject("userimg", resourceCulture);

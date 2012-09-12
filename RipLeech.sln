@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RipLeech", "RipLeech\RipLee
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lyriz Launcher Updater", "RipLeech Updater\Lyriz Launcher Updater.csproj", "{9CB9C73E-5CDC-4782-B2DB-7A15F6A9D5FD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RipLeech_Helper", "RipLeech_Helper\RipLeech_Helper.csproj", "{DE399598-7EE8-41D6-855F-52815A75C83A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -19,6 +21,10 @@ Global
 		{9CB9C73E-5CDC-4782-B2DB-7A15F6A9D5FD}.Debug|x86.Build.0 = Debug|x86
 		{9CB9C73E-5CDC-4782-B2DB-7A15F6A9D5FD}.Release|x86.ActiveCfg = Release|x86
 		{9CB9C73E-5CDC-4782-B2DB-7A15F6A9D5FD}.Release|x86.Build.0 = Release|x86
+		{DE399598-7EE8-41D6-855F-52815A75C83A}.Debug|x86.ActiveCfg = Debug|x86
+		{DE399598-7EE8-41D6-855F-52815A75C83A}.Debug|x86.Build.0 = Debug|x86
+		{DE399598-7EE8-41D6-855F-52815A75C83A}.Release|x86.ActiveCfg = Release|x86
+		{DE399598-7EE8-41D6-855F-52815A75C83A}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
