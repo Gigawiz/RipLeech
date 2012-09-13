@@ -25,7 +25,7 @@ namespace RipLeech
     {
         string vidid2 = null;
         string root = @"C:\RipLeech\Temp\";
-        string ffmpeg = @"C:\RipLeech";
+        string ffmpeg = @"C:\Program Files\NiCoding\RipLeech";
         string viddling = "";
         string vidout = "";
         string mp4out = "";
@@ -298,11 +298,11 @@ namespace RipLeech
                     string bitrate = RipLeech.Properties.Settings.Default.audioquality;
                     if (Environment.Is64BitOperatingSystem)
                     {
-                        proc.StartInfo.FileName = Directory.GetCurrentDirectory() + @"\Data\ffmpeg-64.exe";
+                        proc.StartInfo.FileName = ffmpeg + @"\Data\ffmpeg-64.exe";
                     }
                     else
                     {
-                        proc.StartInfo.FileName = Directory.GetCurrentDirectory() + @"\Data\ffmpeg-32.exe";
+                        proc.StartInfo.FileName = ffmpeg + @"\Data\ffmpeg-32.exe";
                     }
                     proc.StartInfo.Arguments = string.Format("-i \"{0}\" -vn -y -f mp3 -ab 320k \"{1}\"", viddling, vidout);
                     proc.StartInfo.RedirectStandardError = true;

@@ -381,6 +381,7 @@
             this.button12.TabIndex = 27;
             this.button12.Text = "Chatbox";
             this.button12.UseVisualStyleBackColor = true;
+            this.button12.Visible = false;
             this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
             // tabPage2
