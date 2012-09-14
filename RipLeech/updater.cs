@@ -21,6 +21,19 @@ namespace RipLeech
 
         private void updater_Load(object sender, EventArgs e)
         {
+            if (RipLeech.Properties.Settings.Default.theme == "steamthemes")
+            {
+                this.BackgroundImage = RipLeech.Properties.Resources.bg1;
+            }
+            else if (RipLeech.Properties.Settings.Default.theme == "nicoding")
+            {
+                this.BackgroundImage = RipLeech.Properties.Resources.bg3;
+            }
+            else
+            {
+                this.BackgroundImage = RipLeech.Properties.Resources.bg;
+            }
+            
             /*if ((RipLeech.Properties.Settings.Default.flashnotinstalled == true) && (RipLeech.Properties.Settings.Default.updateavail == false))
             {
                 MessageBox.Show("Updating Flash!");

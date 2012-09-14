@@ -83,6 +83,18 @@ namespace RipLeech
                 button2.Visible = false;
             }
             #endregion
+            if (RipLeech.Properties.Settings.Default.theme == "steamthemes")
+            {
+                this.BackgroundImage = RipLeech.Properties.Resources.bg1;
+            }
+            else if (RipLeech.Properties.Settings.Default.theme == "nicoding")
+            {
+                this.BackgroundImage = RipLeech.Properties.Resources.bg3;
+            }
+            else
+            {
+                this.BackgroundImage = RipLeech.Properties.Resources.bg;
+            }
             timer1.Start();
             getchats();
             getonlineusers();
@@ -183,7 +195,7 @@ namespace RipLeech
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
-            if (textBox2.Text.Length > 6)
+            if (textBox2.Text.Length > 4)
             {
                 button2.Enabled = true;
             }
@@ -191,12 +203,61 @@ namespace RipLeech
 
         private void button2_Click(object sender, EventArgs e)
         {
-            string reg = "http://nicoding.com/api.php?app=ripleech&newuser="+textBox2.Text+"&pass=&email=";
-            WebClient web = new WebClient();
-            System.IO.Stream stream = web.OpenRead(reg);
-            System.IO.StreamReader reader = new System.IO.StreamReader(stream);
-            string messages = reader.ReadToEnd();
-            MessageBox.Show(messages);
+            InputBoxValidation validation = delegate(string val)
+            {
+                if (val == "")
+                    return "Value cannot be empty.";
+                if (!(new Regex(@"^[a-zA-Z0-9_\-\.]+@[a-zA-Z0-9_\-\.]+\.[a-zA-Z]{2,}$")).IsMatch(val))
+                    return "Email address is not valid.";
+                return "";
+            };
+
+            InputBoxValidation validation2 = delegate(string val2)
+            {
+                if (val2 == "")
+                    return "Value cannot be empty.";
+                if (val2.Length <= 5)
+                    return "password must be 6 or more characters";
+                return "";
+            };
+
+            string value = "info@example.com";
+            string value2 = "123456";
+            if (InputBox.Show("Enter your email address", "Email address:", ref value, validation) == DialogResult.OK)
+            {
+                if (InputBox.Show("Please enter a password 6 characters or more.", "Password:", ref value2, validation2) == DialogResult.OK)
+                {
+                    string compare = "http://nicoding.com/api.php?app=ripleech&newuser=" + textBox2.Text + "&pass="+value2+"&email="+value;
+                    WebClient web2 = new WebClient();
+                    System.IO.Stream stream2 = web2.OpenRead(compare);
+                    string result2 = null;
+                    using (System.IO.StreamReader reader2 = new System.IO.StreamReader(stream2))
+                    {
+                        result2 = reader2.ReadToEnd();
+                    }
+                    if (result2 == "Error! User already exists!")
+                    {
+                        string message = "Error! That user allready exists! Did you forget your password?";
+                        string caption = "User Exists";
+                        MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                        DialogResult error;
+                        error = MessageBox.Show(message, caption, buttons);
+
+                        if (error == System.Windows.Forms.DialogResult.Yes)
+                        {
+                            this.Close();
+                        }
+                    }
+                    else if (result2 == "User info updated successfully")
+                    {
+                        MessageBox.Show("You have Successfully registered! You may now login with your username and password.", "Registration Successful!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("There seems to be an error with the user system at the present time. Please try again later.", "System Error");
+                    }
+                }
+            }
         }
     }
 }

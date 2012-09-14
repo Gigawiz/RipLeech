@@ -91,6 +91,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(-3, 37);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(58, 13);
@@ -102,6 +103,7 @@
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(418, 37);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(70, 13);
@@ -156,41 +158,41 @@
             this.invisibleToolStripMenuItem,
             this.offlineToolStripMenuItem});
             this.statusToolStripMenuItem.Name = "statusToolStripMenuItem";
-            this.statusToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.statusToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.statusToolStripMenuItem.Text = "Status";
             // 
             // onlineToolStripMenuItem
             // 
             this.onlineToolStripMenuItem.Name = "onlineToolStripMenuItem";
-            this.onlineToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.onlineToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.onlineToolStripMenuItem.Text = "Online";
             this.onlineToolStripMenuItem.Click += new System.EventHandler(this.onlineToolStripMenuItem_Click);
             // 
             // awayToolStripMenuItem
             // 
             this.awayToolStripMenuItem.Name = "awayToolStripMenuItem";
-            this.awayToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.awayToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.awayToolStripMenuItem.Text = "Away";
             this.awayToolStripMenuItem.Click += new System.EventHandler(this.awayToolStripMenuItem_Click);
             // 
             // busyToolStripMenuItem
             // 
             this.busyToolStripMenuItem.Name = "busyToolStripMenuItem";
-            this.busyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.busyToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.busyToolStripMenuItem.Text = "Busy";
             this.busyToolStripMenuItem.Click += new System.EventHandler(this.busyToolStripMenuItem_Click);
             // 
             // invisibleToolStripMenuItem
             // 
             this.invisibleToolStripMenuItem.Name = "invisibleToolStripMenuItem";
-            this.invisibleToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.invisibleToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.invisibleToolStripMenuItem.Text = "Invisible";
             this.invisibleToolStripMenuItem.Click += new System.EventHandler(this.invisibleToolStripMenuItem_Click);
             // 
             // offlineToolStripMenuItem
             // 
             this.offlineToolStripMenuItem.Name = "offlineToolStripMenuItem";
-            this.offlineToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.offlineToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.offlineToolStripMenuItem.Text = "Offline";
             this.offlineToolStripMenuItem.Click += new System.EventHandler(this.offlineToolStripMenuItem_Click);
             // 
@@ -222,6 +224,7 @@
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(87, 341);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(111, 13);
@@ -257,7 +260,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::RipLeech.Properties.Resources.bg;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(569, 430);
             this.Controls.Add(this.listBox2);
             this.Controls.Add(this.button2);

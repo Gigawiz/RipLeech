@@ -57,69 +57,60 @@ namespace RipLeech
         {
             if ((!String.IsNullOrEmpty(textBox1.Text)) || (textBox1.Text != "Example: qbagLrDTzGY"))
             {
-                int tempvidsdled = RipLeech.Properties.Settings.Default.videosdownloaded;
-                RipLeech.Properties.Settings.Default.videosdownloaded = tempvidsdled + 1;
-                RipLeech.Properties.Settings.Default.Save();
-                // Our youtube link
-                string link = "http://www.youtube.com/watch?v=" + textBox1.Text;
-                /*
-                 * Get the available video formats.
-                 * We'll work with them in the video and audio download examples.
-                 */
-                IEnumerable<VideoInfo> videoInfos = DownloadUrlResolver.GetDownloadUrls(link);
-                #region get vid max quality
-                if (radioButton2.Checked == true)
+                try
                 {
-                    if (RipLeech.Properties.Settings.Default.ffmpeg == false)
+                    int tempvidsdled = RipLeech.Properties.Settings.Default.videosdownloaded;
+                    RipLeech.Properties.Settings.Default.videosdownloaded = tempvidsdled + 1;
+                    RipLeech.Properties.Settings.Default.Save();
+                    // Our youtube link
+                    string link = "http://www.youtube.com/watch?v=" + textBox1.Text;
+                    /*
+                     * Get the available video formats.
+                     * We'll work with them in the video and audio download examples.
+                     */
+                    IEnumerable<VideoInfo> videoInfos = DownloadUrlResolver.GetDownloadUrls(link);
+                    #region get vid max quality
+                    if (radioButton2.Checked == true)
                     {
-                        try
-                        {
-                            VideoInfo video = videoInfos.Where(info => info.CanExtractAudio).First(info => info.VideoFormat == VideoFormat.FlashAacHighQuality || info.VideoFormat == VideoFormat.FlashAacLowQuality || info.VideoFormat == VideoFormat.FlashMp3HighQuality || info.VideoFormat == VideoFormat.FlashMp3LowQuality);
-                            label11.Text = video.Title;
-                            label17.Text = "HQ Mp3";
-                            WebClient client = new WebClient();
-                            string saveto = root + video.Title + video.VideoExtension;
-                            vidout = root + video.Title + ".mp3";
-                            viddling = saveto;
-                            vidname = video.Title + ".mp3";
-                            client.Encoding = System.Text.Encoding.UTF8;
-                            Uri update = new Uri(video.DownloadUrl);
-                            client.DownloadFileAsync(update, saveto);
-                            client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
-                            client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
-                    }
-                    else
-                    {
-                        try
-                        {
-                            VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.HighDefinition1080);
-                            mp4out = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + ".mp4";
-                            label11.Text = video.Title;
-                            label17.Text = "1080p";
-                            WebClient client = new WebClient();
-                            string saveto = root + video.Title + video.VideoExtension;
-                            vidout = root + video.Title + ".mp3";
-                            viddling = saveto;
-                            vidname = video.Title + ".mp3";
-                            client.Encoding = System.Text.Encoding.UTF8;
-                            Uri update = new Uri(video.DownloadUrl);
-                            client.DownloadFileAsync(update, saveto);
-                            client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
-                            client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
-                        }
-                        catch
+                        #region get audio quality
+                        if (RipLeech.Properties.Settings.Default.ffmpeg == false)
                         {
                             try
                             {
-                                VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.HighDefinition720);
-                                mp4out = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + ".mp4";
+                                VideoInfo video = videoInfos.Where(info => info.CanExtractAudio).First(info => info.VideoFormat == VideoFormat.FlashAacHighQuality || info.VideoFormat == VideoFormat.FlashAacLowQuality || info.VideoFormat == VideoFormat.FlashMp3HighQuality || info.VideoFormat == VideoFormat.FlashMp3LowQuality);
                                 label11.Text = video.Title;
-                                label17.Text = "720p";
+                                label17.Text = "HQ Mp3";
+                                WebClient client = new WebClient();
+                                string saveto = root + video.Title + video.VideoExtension;
+                                vidout = root + video.Title + ".mp3";
+                                viddling = saveto;
+                                vidname = video.Title + ".mp3";
+                                client.Encoding = System.Text.Encoding.UTF8;
+                                Uri update = new Uri(video.DownloadUrl);
+                                client.DownloadFileAsync(update, saveto);
+                                client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
+                                client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message);
+                            }
+                        }
+                        else
+                        {
+                            try
+                            {
+                                VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.HighDefinition1080);
+                                if (!String.IsNullOrEmpty(RipLeech.Properties.Settings.Default.videosavepath))
+                                {
+                                    mp4out = RipLeech.Properties.Settings.Default.videosavepath;
+                                }
+                                else
+                                {
+                                    mp4out = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + ".mp4";
+                                }
+                                label11.Text = video.Title;
+                                label17.Text = "1080p";
                                 WebClient client = new WebClient();
                                 string saveto = root + video.Title + video.VideoExtension;
                                 vidout = root + video.Title + ".mp3";
@@ -135,10 +126,17 @@ namespace RipLeech
                             {
                                 try
                                 {
-                                    VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.HighDefinition4K);
-                                    mp4out = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + ".mp4";
+                                    VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.HighDefinition720);
+                                    if (!String.IsNullOrEmpty(RipLeech.Properties.Settings.Default.videosavepath))
+                                    {
+                                        mp4out = RipLeech.Properties.Settings.Default.videosavepath;
+                                    }
+                                    else
+                                    {
+                                        mp4out = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + ".mp4";
+                                    }
                                     label11.Text = video.Title;
-                                    label17.Text = "480p";
+                                    label17.Text = "720p";
                                     WebClient client = new WebClient();
                                     string saveto = root + video.Title + video.VideoExtension;
                                     vidout = root + video.Title + ".mp3";
@@ -152,57 +150,80 @@ namespace RipLeech
                                 }
                                 catch
                                 {
-                                    VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.Standard360);
-                                    mp4out = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + ".mp4";
-                                    label11.Text = video.Title;
-                                    label17.Text = "360p";
-                                    WebClient client = new WebClient();
-                                    string saveto = root + video.Title + video.VideoExtension;
-                                    vidout = root + video.Title + ".mp3";
-                                    viddling = saveto;
-                                    vidname = video.Title + ".mp3";
-                                    client.Encoding = System.Text.Encoding.UTF8;
-                                    Uri update = new Uri(video.DownloadUrl);
-                                    client.DownloadFileAsync(update, saveto);
-                                    client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
-                                    client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
+                                    try
+                                    {
+                                        VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.HighDefinition4K);
+                                        if (!String.IsNullOrEmpty(RipLeech.Properties.Settings.Default.videosavepath))
+                                        {
+                                            mp4out = RipLeech.Properties.Settings.Default.videosavepath;
+                                        }
+                                        else
+                                        {
+                                            mp4out = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + ".mp4";
+                                        }
+                                        label11.Text = video.Title;
+                                        label17.Text = "480p";
+                                        WebClient client = new WebClient();
+                                        string saveto = root + video.Title + video.VideoExtension;
+                                        vidout = root + video.Title + ".mp3";
+                                        viddling = saveto;
+                                        vidname = video.Title + ".mp3";
+                                        client.Encoding = System.Text.Encoding.UTF8;
+                                        Uri update = new Uri(video.DownloadUrl);
+                                        client.DownloadFileAsync(update, saveto);
+                                        client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
+                                        client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
+                                    }
+                                    catch
+                                    {
+                                        VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.Standard360);
+                                        if (!String.IsNullOrEmpty(RipLeech.Properties.Settings.Default.videosavepath))
+                                        {
+                                            mp4out = RipLeech.Properties.Settings.Default.videosavepath;
+                                        }
+                                        else
+                                        {
+                                            mp4out = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + ".mp4";
+                                        }
+                                        label11.Text = video.Title;
+                                        label17.Text = "360p";
+                                        WebClient client = new WebClient();
+                                        string saveto = root + video.Title + video.VideoExtension;
+                                        vidout = root + video.Title + ".mp3";
+                                        viddling = saveto;
+                                        vidname = video.Title + ".mp3";
+                                        client.Encoding = System.Text.Encoding.UTF8;
+                                        Uri update = new Uri(video.DownloadUrl);
+                                        client.DownloadFileAsync(update, saveto);
+                                        client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
+                                        client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
+                                    }
                                 }
                             }
                         }
+#endregion
                     }
-                }
-                else
-                {
-                    try
+                    else
                     {
-                        VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.HighDefinition1080);
-                        mp4out = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + ".mp4";
-                        label11.Text = video.Title;
-                        label17.Text = "1080p";
-                        WebClient client = new WebClient();
-                        string saveto = root + video.Title + video.VideoExtension;
-                        vidout = root + video.Title + ".mp3";
-                        viddling = saveto;
-                        vidname = video.Title + ".mp3";
-                        client.Encoding = System.Text.Encoding.UTF8;
-                        Uri update = new Uri(video.DownloadUrl);
-                        client.DownloadFileAsync(update, saveto);
-                        client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
-                        client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
-                    }
-                    catch
-                    {
+                        #region get video quality
                         try
                         {
-                            VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.HighDefinition720);
-                            mp4out = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + ".mp4";
+                            VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.HighDefinition1080);
+                            if (!String.IsNullOrEmpty(RipLeech.Properties.Settings.Default.videosavepath))
+                            {
+                                mp4out = RipLeech.Properties.Settings.Default.videosavepath + @"\" + video.Title + ".mp4";
+                            }
+                            else
+                            {
+                                mp4out = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + ".mp4";
+                            }
                             label11.Text = video.Title;
-                            label17.Text = "720p";
+                            label17.Text = "1080p";
                             WebClient client = new WebClient();
                             string saveto = root + video.Title + video.VideoExtension;
-                            vidout = root + video.Title + ".mp3";
+                            vidout = root + video.Title + video.VideoExtension;
                             viddling = saveto;
-                            vidname = video.Title + ".mp3";
+                            vidname = video.Title + video.VideoExtension;
                             client.Encoding = System.Text.Encoding.UTF8;
                             Uri update = new Uri(video.DownloadUrl);
                             client.DownloadFileAsync(update, saveto);
@@ -213,15 +234,22 @@ namespace RipLeech
                         {
                             try
                             {
-                                VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.HighDefinition4K);
-                                mp4out = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + ".mp4";
+                                VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.HighDefinition720);
+                                if (!String.IsNullOrEmpty(RipLeech.Properties.Settings.Default.videosavepath))
+                                {
+                                    mp4out = RipLeech.Properties.Settings.Default.videosavepath + @"\" + video.Title + ".mp4";
+                                }
+                                else
+                                {
+                                    mp4out = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + ".mp4";
+                                }
                                 label11.Text = video.Title;
-                                label17.Text = "480p";
+                                label17.Text = "720p";
                                 WebClient client = new WebClient();
                                 string saveto = root + video.Title + video.VideoExtension;
-                                vidout = root + video.Title + ".mp3";
+                                vidout = root + video.Title + video.VideoExtension;
                                 viddling = saveto;
-                                vidname = video.Title + ".mp3";
+                                vidname = video.Title + video.VideoExtension;
                                 client.Encoding = System.Text.Encoding.UTF8;
                                 Uri update = new Uri(video.DownloadUrl);
                                 client.DownloadFileAsync(update, saveto);
@@ -230,25 +258,64 @@ namespace RipLeech
                             }
                             catch
                             {
-                                VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.Standard360);
-                                mp4out = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + ".mp4";
-                                label11.Text = video.Title;
-                                label17.Text = "360p";
-                                WebClient client = new WebClient();
-                                string saveto = root + video.Title + video.VideoExtension;
-                                vidout = root + video.Title + ".mp3";
-                                viddling = saveto;
-                                vidname = video.Title + ".mp3";
-                                client.Encoding = System.Text.Encoding.UTF8;
-                                Uri update = new Uri(video.DownloadUrl);
-                                client.DownloadFileAsync(update, saveto);
-                                client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
-                                client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
+                                try
+                                {
+                                    VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.HighDefinition4K);
+                                    if (!String.IsNullOrEmpty(RipLeech.Properties.Settings.Default.videosavepath))
+                                    {
+                                        mp4out = RipLeech.Properties.Settings.Default.videosavepath + @"\" + video.Title + ".mp4";
+                                    }
+                                    else
+                                    {
+                                        mp4out = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + ".mp4";
+                                    }
+                                    label11.Text = video.Title;
+                                    label17.Text = "480p";
+                                    WebClient client = new WebClient();
+                                    string saveto = root + video.Title + video.VideoExtension;
+                                    vidout = root + video.Title + video.VideoExtension;
+                                    viddling = saveto;
+                                    vidname = video.Title + video.VideoExtension;
+                                    client.Encoding = System.Text.Encoding.UTF8;
+                                    Uri update = new Uri(video.DownloadUrl);
+                                    client.DownloadFileAsync(update, saveto);
+                                    client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
+                                    client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
+                                }
+                                catch
+                                {
+                                    VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.Standard360);
+                                    if (!String.IsNullOrEmpty(RipLeech.Properties.Settings.Default.videosavepath))
+                                    {
+                                        mp4out = RipLeech.Properties.Settings.Default.videosavepath + @"\" + video.Title + ".mp4";
+                                    }
+                                    else
+                                    {
+                                        mp4out = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos) + @"\" + video.Title + ".mp4";
+                                    }
+                                    label11.Text = video.Title;
+                                    label17.Text = "360p";
+                                    WebClient client = new WebClient();
+                                    string saveto = root + video.Title + video.VideoExtension;
+                                    vidout = root + video.Title + video.VideoExtension;
+                                    viddling = saveto;
+                                    vidname = video.Title + video.VideoExtension;
+                                    client.Encoding = System.Text.Encoding.UTF8;
+                                    Uri update = new Uri(video.DownloadUrl);
+                                    client.DownloadFileAsync(update, saveto);
+                                    client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
+                                    client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
+                                }
                             }
                         }
+                        #endregion
                     }
+                    #endregion
                 }
-                #endregion
+                catch (Exception ex)
+                {
+                    MessageBox.Show("It seems that there has been an error trying to get the Video ID. please try re-entering the id. If the problem persists, submit an issue on https://github.com/NiCoding/RipLeech/issues/new");
+                }
             }
             else
             {
@@ -262,6 +329,8 @@ namespace RipLeech
                 if (!viddling.Contains("flv"))
                 {
                     label1.Text = "Status: Ready";
+                    File.Copy(viddling, mp4out);
+                    File.Delete(viddling);
                 }
                 else
                 {
@@ -342,9 +411,16 @@ namespace RipLeech
                         {
                             string mymusic = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + @"\" + vidname;
                             //MessageBox.Show(mymusic);
-                            if (!File.Exists(mymusic))
+                            if (!String.IsNullOrEmpty(RipLeech.Properties.Settings.Default.audiosavepath))
                             {
-                                File.Copy(vidout, mymusic);
+                                File.Copy(vidout, RipLeech.Properties.Settings.Default.audiosavepath + @"\" + vidname);
+                            }
+                            else
+                            {
+                                if (!File.Exists(mymusic))
+                                {
+                                    File.Copy(vidout, mymusic);
+                                }
                             }
                             File.Delete(vidout);
                         }
@@ -384,6 +460,7 @@ namespace RipLeech
             label1.Text = "Status: Complete";
             progressBar1.Value = 0;
             button4.Visible = true;
+            button8.Visible = true;
         }
         void client_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
@@ -500,22 +577,34 @@ namespace RipLeech
 
         private void mainpage_Load(object sender, EventArgs e)
         {
+            if (RipLeech.Properties.Settings.Default.theme == "steamthemes")
+            {
+                this.BackgroundImage = RipLeech.Properties.Resources.bg1;
+            }
+            else if (RipLeech.Properties.Settings.Default.theme == "nicoding")
+            {
+                this.BackgroundImage = RipLeech.Properties.Resources.bg3;
+            }
+            else
+            {
+                this.BackgroundImage = RipLeech.Properties.Resources.bg;
+            }
+            
             timer3.Start();
             timer4.Start();
             if (!Directory.Exists(root))
             {
                 Directory.CreateDirectory(root);
             }
-            if (!String.IsNullOrEmpty(RipLeech.Properties.Settings.Default.audiosavepath))
+            if (String.IsNullOrEmpty(RipLeech.Properties.Settings.Default.audiosavepath))
             {
                 RipLeech.Properties.Settings.Default.audiosavepath = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic);
             }
-            if (!String.IsNullOrEmpty(RipLeech.Properties.Settings.Default.videosavepath))
+            if (String.IsNullOrEmpty(RipLeech.Properties.Settings.Default.videosavepath))
             {
                 RipLeech.Properties.Settings.Default.videosavepath = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
             }
         }
-
         private void button3_Click(object sender, EventArgs e)
         {
             label5.Text = "Search Results:";
@@ -572,7 +661,7 @@ namespace RipLeech
         {
             if (radioButton1.Checked == true)
             {
-                Process.Start(viddling);
+                Process.Start(mp4out);
             }
             else if (viddling.Contains("flv"))
             {
@@ -589,6 +678,9 @@ namespace RipLeech
             {
                 Process.Start(Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + @"\" + vidname);
             }
+            button4.Visible = false;
+            button8.Visible = false;
+            button6.Enabled = false;
         }
 
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
@@ -683,6 +775,49 @@ namespace RipLeech
                     button3_Click((object)sender, (EventArgs)e);
                 }
             }
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            string filepath = null;
+            if (radioButton1.Checked == true)
+            {
+                filepath = mp4out;
+            }
+            else if (viddling.Contains("flv"))
+            {
+                if (RipLeech.Properties.Settings.Default.ffmpeg == true)
+                {
+                    filepath = mp4out;
+                }
+                else
+                {
+                    if (!String.IsNullOrEmpty(RipLeech.Properties.Settings.Default.audiosavepath))
+                    {
+                        filepath = RipLeech.Properties.Settings.Default.audiosavepath + @"\" + vidname;
+                    }
+                    else
+                    {
+                        filepath = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + @"\" + vidname;
+                    }
+                }
+            }
+            else
+            {
+                if (!String.IsNullOrEmpty(RipLeech.Properties.Settings.Default.audiosavepath))
+                {
+                    filepath = RipLeech.Properties.Settings.Default.audiosavepath + @"\" + vidname;
+                }
+                else
+                {
+                    filepath = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + @"\" + vidname;
+                }
+            }
+            string argument = @"/select, " + filepath;
+            System.Diagnostics.Process.Start("explorer.exe", argument);
+            button4.Visible = false;
+            button8.Visible = false;
+            button6.Enabled = false;
         }
     }
 }

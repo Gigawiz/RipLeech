@@ -21,6 +21,18 @@ namespace RipLeech
 
         private void recents_Load(object sender, EventArgs e)
         {
+            if (RipLeech.Properties.Settings.Default.theme == "steamthemes")
+            {
+                this.BackgroundImage = RipLeech.Properties.Resources.bg1;
+            }
+            else if (RipLeech.Properties.Settings.Default.theme == "nicoding")
+            {
+                this.BackgroundImage = RipLeech.Properties.Resources.bg3;
+            }
+            else
+            {
+                this.BackgroundImage = RipLeech.Properties.Resources.bg;
+            }
             try
             {
                 string updateurl = "http://nicoding.com/api.php?app=ripleech&trending=list";

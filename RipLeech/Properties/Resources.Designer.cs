@@ -67,6 +67,20 @@ namespace RipLeech.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap bg1 {
+            get {
+                object obj = ResourceManager.GetObject("bg1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap bg3 {
+            get {
+                object obj = ResourceManager.GetObject("bg3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap box {
             get {
                 object obj = ResourceManager.GetObject("box", resourceCulture);
@@ -137,6 +151,20 @@ namespace RipLeech.Properties {
         internal static string protocol {
             get {
                 return ResourceManager.GetString("protocol", resourceCulture);
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ripleech_nic_logo {
+            get {
+                object obj = ResourceManager.GetObject("ripleech_nic_logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap steamthemes_theme_logo {
+            get {
+                object obj = ResourceManager.GetObject("steamthemes_theme_logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

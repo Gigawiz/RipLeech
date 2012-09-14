@@ -41,6 +41,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevComponents.DotNetBar2, Version=10.7.0.0, Culture=neutral, PublicKeyToken=ff0069e61369d6d6, processorArchitecture=MSIL" />
     <Reference Include="Google.GData.Client">
       <HintPath>..\..\TubeRip\TubeRip\bin\Release\Google.GData.Client.dll</HintPath>
     </Reference>
@@ -126,6 +127,12 @@
     <Compile Include="TransparentLabel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="updatefound.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="updatefound.Designer.cs">
+      <DependentUpon>updatefound.cs</DependentUpon>
+    </Compile>
     <Compile Include="updater.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -172,6 +179,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="survey.resx">
       <DependentUpon>survey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="updatefound.resx">
+      <DependentUpon>updatefound.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="updater.resx">
       <DependentUpon>updater.cs</DependentUpon>
@@ -223,6 +233,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
+    <None Include="Resources\ripleech_nic_logo.png" />
+    <None Include="Resources\steamthemes_theme_logo.png" />
+    <None Include="Resources\bg3.png" />
+    <None Include="Resources\bg.jpg" />
     <None Include="Resources\protocol.txt" />
     <None Include="Resources\protocol.reg.txt" />
   </ItemGroup>

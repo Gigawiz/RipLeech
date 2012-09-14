@@ -44,5 +44,14 @@
     <Setting Name="reginstalled" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="progvers" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">15</Value>
+    </Setting>
+    <Setting Name="buildvers" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">3.5A-2</Value>
+    </Setting>
+    <Setting Name="theme" Type="System.String" Scope="User">
+      <Value Profile="(Default)">default</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

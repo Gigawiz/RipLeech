@@ -18,6 +18,7 @@ namespace RipLeech
         string plugurl = null;
         string assembly = null;
         string plugindir = @"C:\Program Files\NiCoding\RipLeech\Data\Addons\";
+        string installdir = @"C:\Program Files\NiCoding\RipLeech\";
         public Menu()
         {
             InitializeComponent();
@@ -101,8 +102,6 @@ namespace RipLeech
 
         private void button3_Click(object sender, EventArgs e)
         {
-            md5engine md5 = new md5engine();
-            string pass = md5.EncodePassword(transparentLabel3.Text).ToLower();
             InputBoxValidation validation = delegate(string val)
             {
                 if (val == "")
@@ -149,11 +148,72 @@ namespace RipLeech
 
         }
 
+        public bool DirectoryIsEmpty(string path)
+        {
+            int fileCount = Directory.GetFiles(path).Length;
+            if (fileCount > 0)
+            {
+                return false;
+            }
+
+            string[] dirs = Directory.GetDirectories(path);
+            foreach (string dir in dirs)
+            {
+                if (!DirectoryIsEmpty(dir))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         private void Menu_Load(object sender, EventArgs e)
         {
+            label16.Text = RipLeech.Properties.Settings.Default.buildvers;
+            if (RipLeech.Properties.Settings.Default.theme == "steamthemes")
+            {
+                settheme("steamthemes");
+                radioButton7.Checked = true;
+            }
+            else if (RipLeech.Properties.Settings.Default.theme == "nicoding")
+            {
+                settheme("nicoding");
+                radioButton8.Checked = true;
+            }
+            else
+            {
+                settheme("default");
+                radioButton4.Checked = true;
+            }
+            try
+            {
+                string updateurl = "http://nicoding.com/api.php?app=ripleech&update=check";
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(updateurl);
+                WebResponse response = request.GetResponse();
+                System.IO.StreamReader sr = new System.IO.StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("windows-1252"));
+                string pluginsavail = sr.ReadToEnd();
+                label18.Text = pluginsavail;
+                if (label16.Text != label18.Text)
+                {
+                    label18.ForeColor = Color.Red;
+                }
+            }
+            catch
+            {
+                label18.Text = "Unknown";
+            }
             if (!Directory.Exists(@"C:\RipLeech\Temp\"))
             {
                 Directory.CreateDirectory(@"C:\RipLeech\Temp\");
+            }
+            else
+            {
+                if (DirectoryIsEmpty(@"C:\RipLeech\Temp\") == false)
+                {
+                    Directory.Delete(@"C:\RipLeech\Temp", true);
+                    Directory.CreateDirectory(@"C:\RipLeech\Temp\");
+                }
             }
             //timer2.Start();
             try
@@ -212,14 +272,19 @@ namespace RipLeech
             {
                 checkBox1.Checked = true;
             }
-            if (File.Exists("updater.temp"))
+            if (File.Exists(installdir + "updater.temp"))
             {
-                if (File.Exists("updater.exe"))
+                if (File.Exists(installdir + "updater.exe"))
                 {
-                    File.Delete("updater.exe");
+                    File.Delete(installdir + "updater.exe");
+                    File.Copy(installdir + "updater.temp", "updater.exe");
+                    File.Delete(installdir + "updater.temp");
                 }
-                File.Copy("updater.temp", "updater.exe");
-                File.Delete("updater.temp");
+                else
+                {
+                    File.Copy(installdir + "updater.temp", "updater.exe");
+                    File.Delete(installdir + "updater.temp");
+                }
             }
             if (!Directory.Exists(plugindir))
             {
@@ -228,6 +293,7 @@ namespace RipLeech
             #region checkforaddons
             try
             {
+                int plgcnt = 0;
                 string[] fileEntries = Directory.GetFiles(plugindir, "*.dll");
                 DirectoryInfo addonnfo = new DirectoryInfo(plugindir);
                 if (addonnfo.Exists)
@@ -241,6 +307,7 @@ namespace RipLeech
                             string totalfilename = Path.GetFileNameWithoutExtension(fileName);
                             Button btnPlay = new Button();
                             btnPlay.Name = totalfilename;
+                            plgcnt++;
                             if (i <= 1)
                             {
                                 btnPlay.Top = button1.Top + 30;
@@ -269,6 +336,14 @@ namespace RipLeech
                         }
                     }
                 }
+                if (plgcnt > 0)
+                {
+                    label20.Text = plgcnt.ToString();
+                }
+                else
+                {
+                    label20.Text = "0";
+                }
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
             #endregion
@@ -282,8 +357,8 @@ namespace RipLeech
                 survey srvy = new survey();
                 srvy.Show();
             }
-            /*
             #region regstuff
+            /*
             //here we write the reg file for the protocol.
             string dir = @"C:\RipLeech\Temp\protocol.reg";
             if (RipLeech.Properties.Settings.Default.reginstalled == false)
@@ -302,7 +377,9 @@ namespace RipLeech
                     restart();
                 }
             }
-            #endregion*/
+            */
+            #endregion
+            timer4.Start();
         }
         void restart()
         {
@@ -665,6 +742,181 @@ namespace RipLeech
         {
             chatbox chat = new chatbox();
             chat.Show();
+        }
+
+        private void radioButton4_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton4.Checked == true)
+            {
+                RipLeech.Properties.Settings.Default.theme = "default";
+                RipLeech.Properties.Settings.Default.Save();
+                settheme("default");
+            }
+            else if (radioButton7.Checked == true)
+            {
+                RipLeech.Properties.Settings.Default.theme = "steamthemes";
+                RipLeech.Properties.Settings.Default.Save();
+                settheme("steamthemes");
+            }
+            else if (radioButton8.Checked == true)
+            {
+                RipLeech.Properties.Settings.Default.theme = "nicoding";
+                RipLeech.Properties.Settings.Default.Save();
+                settheme("nicoding");
+            }
+        }
+
+        private void radioButton7_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton4.Checked == true)
+            {
+                RipLeech.Properties.Settings.Default.theme = "default";
+                RipLeech.Properties.Settings.Default.Save();
+                settheme("default");
+            }
+            else if (radioButton7.Checked == true)
+            {
+                RipLeech.Properties.Settings.Default.theme = "steamthemes";
+                RipLeech.Properties.Settings.Default.Save();
+                settheme("steamthemes");
+            }
+            else if (radioButton8.Checked == true)
+            {
+                RipLeech.Properties.Settings.Default.theme = "nicoding";
+                RipLeech.Properties.Settings.Default.Save();
+                settheme("nicoding");
+            }
+        }
+
+        private void radioButton8_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton4.Checked == true)
+            {
+                RipLeech.Properties.Settings.Default.theme = "default";
+                RipLeech.Properties.Settings.Default.Save();
+                settheme("default");
+            }
+            else if (radioButton7.Checked == true)
+            {
+                RipLeech.Properties.Settings.Default.theme = "steamthemes";
+                RipLeech.Properties.Settings.Default.Save();
+                settheme("steamthemes");
+            }
+            else if (radioButton8.Checked == true)
+            {
+                RipLeech.Properties.Settings.Default.theme = "nicoding";
+                RipLeech.Properties.Settings.Default.Save();
+                settheme("nicoding");
+            }
+        }
+        private void settheme(string name)
+        {
+            if (name == "steamthemes")
+            {
+                this.BackgroundImage = RipLeech.Properties.Resources.bg1;
+                tabControl1.TabPages[0].BackgroundImage = RipLeech.Properties.Resources.bg1;
+                tabControl1.TabPages[1].BackgroundImage = RipLeech.Properties.Resources.bg1;
+                tabControl1.TabPages[2].BackgroundImage = RipLeech.Properties.Resources.bg1;
+                tabControl1.TabPages[3].BackgroundImage = RipLeech.Properties.Resources.bg1;
+                tabControl1.TabPages[4].BackgroundImage = RipLeech.Properties.Resources.bg1;
+                tabControl1.TabPages[5].BackgroundImage = RipLeech.Properties.Resources.bg1;
+                tabControl1.TabPages[6].BackgroundImage = RipLeech.Properties.Resources.bg1;
+                tabControl1.TabPages[7].BackgroundImage = RipLeech.Properties.Resources.bg1;
+                pictureBox1.Image = RipLeech.Properties.Resources.steamthemes_theme_logo;
+            }
+            else if (name == "nicoding")
+            {
+                this.BackgroundImage = RipLeech.Properties.Resources.bg3;
+                tabControl1.TabPages[0].BackgroundImage = RipLeech.Properties.Resources.bg3;
+                tabControl1.TabPages[1].BackgroundImage = RipLeech.Properties.Resources.bg3;
+                tabControl1.TabPages[2].BackgroundImage = RipLeech.Properties.Resources.bg3;
+                tabControl1.TabPages[3].BackgroundImage = RipLeech.Properties.Resources.bg3;
+                tabControl1.TabPages[4].BackgroundImage = RipLeech.Properties.Resources.bg3;
+                tabControl1.TabPages[5].BackgroundImage = RipLeech.Properties.Resources.bg3;
+                tabControl1.TabPages[6].BackgroundImage = RipLeech.Properties.Resources.bg3;
+                tabControl1.TabPages[7].BackgroundImage = RipLeech.Properties.Resources.bg3;
+                pictureBox1.Image = RipLeech.Properties.Resources.ripleech_nic_logo;
+            }
+            else if (name == "default")
+            {
+                this.BackgroundImage = RipLeech.Properties.Resources.bg;
+                tabControl1.TabPages[0].BackgroundImage = RipLeech.Properties.Resources.bg;
+                tabControl1.TabPages[1].BackgroundImage = RipLeech.Properties.Resources.bg;
+                tabControl1.TabPages[2].BackgroundImage = RipLeech.Properties.Resources.bg;
+                tabControl1.TabPages[3].BackgroundImage = RipLeech.Properties.Resources.bg;
+                tabControl1.TabPages[4].BackgroundImage = RipLeech.Properties.Resources.bg;
+                tabControl1.TabPages[5].BackgroundImage = RipLeech.Properties.Resources.bg;
+                tabControl1.TabPages[6].BackgroundImage = RipLeech.Properties.Resources.bg;
+                tabControl1.TabPages[7].BackgroundImage = RipLeech.Properties.Resources.bg;
+                pictureBox1.Image = RipLeech.Properties.Resources.logo;
+            }
+            else
+            {
+                this.BackgroundImage = RipLeech.Properties.Resources.bg;
+                tabControl1.TabPages[0].BackgroundImage = RipLeech.Properties.Resources.bg;
+                tabControl1.TabPages[1].BackgroundImage = RipLeech.Properties.Resources.bg;
+                tabControl1.TabPages[2].BackgroundImage = RipLeech.Properties.Resources.bg;
+                tabControl1.TabPages[3].BackgroundImage = RipLeech.Properties.Resources.bg;
+                tabControl1.TabPages[4].BackgroundImage = RipLeech.Properties.Resources.bg;
+                tabControl1.TabPages[5].BackgroundImage = RipLeech.Properties.Resources.bg;
+                tabControl1.TabPages[6].BackgroundImage = RipLeech.Properties.Resources.bg;
+                tabControl1.TabPages[7].BackgroundImage = RipLeech.Properties.Resources.bg;
+                pictureBox1.Image = RipLeech.Properties.Resources.logo;
+            }
+        }
+
+        private void timer4_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                string updateurl = null;
+                if (RipLeech.Properties.Settings.Default.betaupdates == true)
+                {
+                    updateurl = "https://dl.dropbox.com/u/22054429/RipLeech/RipLeech_beta_version.txt";
+                    if (!File.Exists("beta.lock"))
+                    {
+                        File.Create("beta.lock");
+                    }
+                }
+                else
+                {
+                    updateurl = "https://dl.dropbox.com/u/22054429/RipLeech/RipLeech_version.txt";
+                }
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(updateurl);
+                WebResponse response = request.GetResponse();
+                System.IO.StreamReader sr = new System.IO.StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("windows-1252"));
+                string update = sr.ReadToEnd();
+                int build = Convert.ToInt32(update);
+                int thisbuild = RipLeech.Properties.Settings.Default.progvers;
+                if (build > thisbuild)
+                {
+                    updatefound upd = new updatefound();
+                    upd.Show();
+                    timer4.Stop();
+                }
+            }
+            catch
+            {
+                timer4.Stop();
+            }
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            if (!String.IsNullOrEmpty(RipLeech.Properties.Settings.Default.audiosavepath))
+            {
+                string mymusic = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic);
+                RipLeech.Properties.Settings.Default.audiosavepath = mymusic;
+                RipLeech.Properties.Settings.Default.Save();
+                textBox2.Text = mymusic;
+            }
+            if (!String.IsNullOrEmpty(RipLeech.Properties.Settings.Default.videosavepath))
+            {
+                string myvids = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
+                RipLeech.Properties.Settings.Default.videosavepath = myvids;
+                RipLeech.Properties.Settings.Default.Save();
+                textBox1.Text = myvids;
+            }
         }
     }
 }

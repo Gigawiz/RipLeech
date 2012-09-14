@@ -25,7 +25,9 @@ namespace RipLeech
             if (progressBar1.Value == 100)
             {
                 timer1.Stop();
-                getupdates();
+                Menu home = new Menu();
+                home.Show();
+                this.Dispose(false);
             }
             else
             {
@@ -35,6 +37,21 @@ namespace RipLeech
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            if (RipLeech.Properties.Settings.Default.theme == "steamthemes")
+            {
+                pictureBox1.Image = RipLeech.Properties.Resources.steamthemes_theme_logo;
+                this.BackgroundImage = RipLeech.Properties.Resources.bg1;
+            }
+            else if (RipLeech.Properties.Settings.Default.theme == "nicoding")
+            {
+                this.BackgroundImage = RipLeech.Properties.Resources.bg3;
+                pictureBox1.Image = RipLeech.Properties.Resources.ripleech_nic_logo;
+            }
+            else
+            {
+                this.BackgroundImage = RipLeech.Properties.Resources.bg;
+                pictureBox1.Image = RipLeech.Properties.Resources.logo;
+            }
             bool isconnected = checknetconnection();
             if (isconnected == false)
             {
@@ -96,7 +113,7 @@ namespace RipLeech
                 System.IO.StreamReader sr = new System.IO.StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("windows-1252"));
                 string update = sr.ReadToEnd();
                 int build = Convert.ToInt32(update);
-                int thisbuild = 14;
+                int thisbuild = RipLeech.Properties.Settings.Default.progvers;
                 if (build > thisbuild)
                 {
                     label2.Visible = true;

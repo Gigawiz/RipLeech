@@ -1,6 +1,18 @@
 RipLeech is designed to allow you to download YouTube videos to your hard drive in mp3 or mp4 format.
 
 *Changelog*
+V3.5A-2
+Added Chat Window for Ripleech users
+Fixed Download Folder Changing
+Added "View In Folder" to allow file to be found easier.
+Added 2 new color schemes to the options menu
+Added program info to main window.
+Fixed a bug where video would download but not move from temp directory
+Fixed a bug where temp directory would not clear
+Added scroll bar to updater news
+Added Auto Update Check
+Fixed a bug where updater would not update itself
+
 V3.5A-1
 Fixed "File Not Found" error for FFMPEG
 
