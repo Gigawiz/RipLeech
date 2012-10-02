@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.IO;
 using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace RipLeech_Helper
 {
@@ -28,6 +29,10 @@ namespace RipLeech_Helper
                 // Here we check the Match instance.
                 if (match.Success)
                 {
+                    if (!Directory.Exists(@"C:\RipLeech\Temp\"))
+                    {
+                        Directory.CreateDirectory(@"C:\RipLeech\Temp\");
+                    }
                     File.WriteAllText(@"C:\RipLeech\Temp\newvid.tmp", argument);
                     Process [] localByName = Process.GetProcessesByName("RipLeech");
                     if (localByName == null || localByName.Length == 0)

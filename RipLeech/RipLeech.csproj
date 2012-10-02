@@ -42,6 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevComponents.DotNetBar2, Version=10.7.0.0, Culture=neutral, PublicKeyToken=ff0069e61369d6d6, processorArchitecture=MSIL" />
+    <Reference Include="DevComponents.Instrumentation, Version=10.7.0.0, Culture=neutral, PublicKeyToken=ff0069e61369d6d6, processorArchitecture=MSIL" />
     <Reference Include="Google.GData.Client">
       <HintPath>..\..\TubeRip\TubeRip\bin\Release\Google.GData.Client.dll</HintPath>
     </Reference>
@@ -75,8 +76,11 @@
   <ItemGroup>
     <Compile Include="AacAudioExtractor.cs" />
     <Compile Include="AudioDownloader.cs" />
+    <Compile Include="AudioExtractionException.cs" />
+    <Compile Include="AudioType.cs" />
     <Compile Include="BigEndianBitConverter.cs" />
     <Compile Include="BitHelper.cs" />
+    <Compile Include="Bitmaps.cs" />
     <Compile Include="chatbox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,6 +101,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="IAudioExtractor.cs" />
+    <Compile Include="Icons.cs" />
     <Compile Include="InputBox.cs" />
     <Compile Include="Interfaces.cs" />
     <Compile Include="ListVideos.cs" />
@@ -107,7 +112,22 @@
     <Compile Include="Menu.Designer.cs">
       <DependentUpon>Menu.cs</DependentUpon>
     </Compile>
+    <Compile Include="metro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="metro.Designer.cs">
+      <DependentUpon>metro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="metrosplash.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="metrosplash.Designer.cs">
+      <DependentUpon>metrosplash.cs</DependentUpon>
+    </Compile>
     <Compile Include="Mp3AudioExtractor.cs" />
+    <Compile Include="newsticker.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="ProgressEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -117,7 +137,9 @@
     <Compile Include="recents.Designer.cs">
       <DependentUpon>recents.cs</DependentUpon>
     </Compile>
+    <Compile Include="Resources.cs" />
     <Compile Include="SingleApplication.cs" />
+    <Compile Include="Sounds.cs" />
     <Compile Include="survey.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -142,6 +164,7 @@
     <Compile Include="VideoDownloader.cs" />
     <Compile Include="VideoFormat.cs" />
     <Compile Include="VideoInfo.cs" />
+    <Compile Include="VideoNotAvailableException.cs" />
     <Compile Include="VideoType.cs" />
     <Compile Include="youtube.cs">
       <SubType>Form</SubType>
@@ -155,6 +178,7 @@
     <Compile Include="YoutubeCountryBypasser.Designer.cs">
       <DependentUpon>YoutubeCountryBypasser.cs</DependentUpon>
     </Compile>
+    <Compile Include="YoutubeParseException.cs" />
     <EmbeddedResource Include="chatbox.resx">
       <DependentUpon>chatbox.cs</DependentUpon>
     </EmbeddedResource>
@@ -163,6 +187,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Menu.resx">
       <DependentUpon>Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="metro.resx">
+      <DependentUpon>metro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="metrosplash.resx">
+      <DependentUpon>metrosplash.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -233,6 +263,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
+    <None Include="Resources\ripleech_chatbox.png" />
+    <None Include="Resources\youtube-logo.png" />
     <None Include="Resources\ripleech_nic_logo.png" />
     <None Include="Resources\steamthemes_theme_logo.png" />
     <None Include="Resources\bg3.png" />

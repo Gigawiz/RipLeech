@@ -764,6 +764,12 @@ namespace RipLeech
                 RipLeech.Properties.Settings.Default.Save();
                 settheme("nicoding");
             }
+            else if (radioButton9.Checked == true)
+            {
+                RipLeech.Properties.Settings.Default.metro = true;
+                RipLeech.Properties.Settings.Default.Save();
+                restart();
+            }
         }
 
         private void radioButton7_CheckedChanged(object sender, EventArgs e)
@@ -786,6 +792,12 @@ namespace RipLeech
                 RipLeech.Properties.Settings.Default.Save();
                 settheme("nicoding");
             }
+            else if (radioButton9.Checked == true)
+            {
+                RipLeech.Properties.Settings.Default.metro = true;
+                RipLeech.Properties.Settings.Default.Save();
+                restart();
+            }
         }
 
         private void radioButton8_CheckedChanged(object sender, EventArgs e)
@@ -807,6 +819,12 @@ namespace RipLeech
                 RipLeech.Properties.Settings.Default.theme = "nicoding";
                 RipLeech.Properties.Settings.Default.Save();
                 settheme("nicoding");
+            }
+            else if (radioButton9.Checked == true)
+            {
+                RipLeech.Properties.Settings.Default.metro = true;
+                RipLeech.Properties.Settings.Default.Save();
+                restart();
             }
         }
         private void settheme(string name)
@@ -916,6 +934,34 @@ namespace RipLeech
                 RipLeech.Properties.Settings.Default.videosavepath = myvids;
                 RipLeech.Properties.Settings.Default.Save();
                 textBox1.Text = myvids;
+            }
+        }
+
+        private void radioButton9_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton4.Checked == true)
+            {
+                RipLeech.Properties.Settings.Default.theme = "default";
+                RipLeech.Properties.Settings.Default.Save();
+                settheme("default");
+            }
+            else if (radioButton7.Checked == true)
+            {
+                RipLeech.Properties.Settings.Default.theme = "steamthemes";
+                RipLeech.Properties.Settings.Default.Save();
+                settheme("steamthemes");
+            }
+            else if (radioButton8.Checked == true)
+            {
+                RipLeech.Properties.Settings.Default.theme = "nicoding";
+                RipLeech.Properties.Settings.Default.Save();
+                settheme("nicoding");
+            }
+            else if (radioButton9.Checked == true)
+            {
+                RipLeech.Properties.Settings.Default.metro = true;
+                RipLeech.Properties.Settings.Default.Save();
+                restart();
             }
         }
     }

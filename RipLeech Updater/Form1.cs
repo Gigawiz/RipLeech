@@ -41,12 +41,56 @@ namespace RipLeech_Updater
                 WebResponse response = request.GetResponse();
                 System.IO.StreamReader sr = new System.IO.StreamReader(response.GetResponseStream(), System.Text.Encoding.GetEncoding("windows-1252"));
                 textBox1.Text = sr.ReadToEnd();
-                dlfiles();
+                if (System.IO.Directory.Exists(installfolder + @"\Temp") || System.IO.Directory.Exists(installfolder + @"\temp"))
+                {
+                    List<String> MyMusicFiles = Directory.GetFiles(installfolder + @"\Temp", "*.*", SearchOption.TopDirectoryOnly).ToList();
+                    foreach (string file in MyMusicFiles)
+                    {
+                        FileInfo mFile = new FileInfo(file);
+                        if (new FileInfo(installfolder + "\\" + mFile.Name).Exists == false)//to remove name collusion
+                        {
+                            mFile.MoveTo(installfolder + "\\" + mFile.Name);
+                        }
+                        else
+                        {
+                            System.IO.File.Delete(installfolder + "\\" + mFile.Name);
+                            mFile.MoveTo(installfolder + "\\" + mFile.Name);
+                        }
+                    }
+                    System.IO.Directory.Delete(installfolder + @"\Temp", true);
+                    end(false);
+                }
+                else
+                {
+                    dlfiles();
+                }
             }
             catch
             {
                 textBox1.Text = "Unable to get update news at this time.";
-                dlfiles();
+                if (System.IO.Directory.Exists(installfolder + @"\Temp") || System.IO.Directory.Exists(installfolder + @"\temp"))
+                {
+                    List<String> MyMusicFiles = Directory.GetFiles(installfolder + @"\Temp", "*.*", SearchOption.TopDirectoryOnly).ToList();
+                    foreach (string file in MyMusicFiles)
+                    {
+                        FileInfo mFile = new FileInfo(file);
+                        if (new FileInfo(installfolder + "\\" + mFile.Name).Exists == false)//to remove name collusion
+                        {
+                            mFile.MoveTo(installfolder + "\\" + mFile.Name);
+                        }
+                        else
+                        {
+                            System.IO.File.Delete(installfolder + "\\" + mFile.Name);
+                            mFile.MoveTo(installfolder + "\\" + mFile.Name);
+                        }
+                    }
+                    System.IO.Directory.Delete(installfolder + @"\Temp", true);
+                    end(false);
+                }
+                else
+                {
+                    dlfiles();
+                }
             }
         }
         private Queue<string> _downloadUrls = new Queue<string>();
@@ -85,17 +129,20 @@ namespace RipLeech_Updater
             }
             DownloadFile();
         }
-        private void end()
+        private void end(bool chrome)
         {
             if (System.IO.File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\RipLeech.ink"))
             {
                 System.IO.File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\RipLeech.ink");
             }
-            if (MessageBox.Show("Do you want the TubeRip Chrome Plugin?", "Chrome Addon", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            if (chrome == true)
             {
-                string dir2 = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\RipLeech.crx";
-                System.IO.File.WriteAllBytes(dir2, RipLeech_Updater.Properties.Resources.ripleech);
-                MessageBox.Show("A file called 'RipLeech.crx' has been created on your desktop. Open chrome, go to tools --> settings --> extensions and drag the file named 'RipLeech.crx' from your desktop into the window.");
+                if (MessageBox.Show("Do you want the TubeRip Chrome Plugin?", "Chrome Addon", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                {
+                    string dir2 = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\RipLeech.crx";
+                    System.IO.File.WriteAllBytes(dir2, RipLeech_Updater.Properties.Resources.ripleech);
+                    MessageBox.Show("A file called 'RipLeech.crx' has been created on your desktop. Open chrome, go to tools --> settings --> extensions and drag the file named 'RipLeech.crx' from your desktop into the window.");
+                }
             }
             #region shortcut installer
             object shDesktop = (object)"Desktop";
@@ -137,7 +184,7 @@ namespace RipLeech_Updater
             }
             done = count;
             // End of the download
-            end();
+            end(true);
         }
         static string GetParentUriString(Uri uri)
         {

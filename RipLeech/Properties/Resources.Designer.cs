@@ -154,6 +154,13 @@ namespace RipLeech.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap ripleech_chatbox {
+            get {
+                object obj = ResourceManager.GetObject("ripleech_chatbox", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap ripleech_nic_logo {
             get {
                 object obj = ResourceManager.GetObject("ripleech_nic_logo", resourceCulture);
@@ -171,6 +178,13 @@ namespace RipLeech.Properties {
         internal static System.Drawing.Bitmap userimg {
             get {
                 object obj = ResourceManager.GetObject("userimg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap youtube_logo {
+            get {
+                object obj = ResourceManager.GetObject("youtube-logo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

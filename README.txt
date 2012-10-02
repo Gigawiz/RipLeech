@@ -1,6 +1,30 @@
 RipLeech is designed to allow you to download YouTube videos to your hard drive in mp3 or mp4 format.
 
 *Changelog*
+
+V3.5A-4
+Fixed broken "File Download Location"
+Fixed Program Info
+Fixed Updater
+Fixed Ripleech Protocol
+Fixed enter keys on youtube search, video id and login textbox's
+Fixed Conversion Tools
+Fixed Audio Conversion Rate
+Added "Force Update" To update tab (Usefull for sudden corruptions)
+Removed "Downloads" from File Menu
+
+
+V3.5A-3
+Added Multiple download ability (aka "Queue")
+Redesigned gui and plugin system (again)
+Youtube Extractor updated to v0.3.4
+Changed updater
+BUGFIXES (YoutubeExtractor):
+- Fixed a bug, that caused the DownloadUrlResolver.GetDownloadUrls method to 
+  randomly throw ArgumentOutOfRangeException.
+- Fixed bug where urls would return "403 Forbidden"
+
+
 V3.5A-2
 Added Chat Window for Ripleech users
 Fixed Download Folder Changing

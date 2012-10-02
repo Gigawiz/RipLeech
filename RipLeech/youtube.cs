@@ -77,7 +77,7 @@ namespace RipLeech
                         {
                             try
                             {
-                                VideoInfo video = videoInfos.Where(info => info.CanExtractAudio).First(info => info.VideoFormat == VideoFormat.FlashAacHighQuality || info.VideoFormat == VideoFormat.FlashAacLowQuality || info.VideoFormat == VideoFormat.FlashMp3HighQuality || info.VideoFormat == VideoFormat.FlashMp3LowQuality);
+                                VideoInfo video = videoInfos.Where(info => info.CanExtractAudio).OrderByDescending(info => info.AudioBitrate).First();
                                 label11.Text = video.Title;
                                 label17.Text = "HQ Mp3";
                                 WebClient client = new WebClient();
@@ -100,7 +100,7 @@ namespace RipLeech
                         {
                             try
                             {
-                                VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.HighDefinition1080);
+                                VideoInfo video = videoInfos.First(info => info.VideoType == VideoType.Mp4 && info.Resolution == 1080);
                                 if (!String.IsNullOrEmpty(RipLeech.Properties.Settings.Default.videosavepath))
                                 {
                                     mp4out = RipLeech.Properties.Settings.Default.videosavepath;
@@ -126,7 +126,7 @@ namespace RipLeech
                             {
                                 try
                                 {
-                                    VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.HighDefinition720);
+                                    VideoInfo video = videoInfos.First(info => info.VideoType == VideoType.Mp4 && info.Resolution == 720);
                                     if (!String.IsNullOrEmpty(RipLeech.Properties.Settings.Default.videosavepath))
                                     {
                                         mp4out = RipLeech.Properties.Settings.Default.videosavepath;
@@ -152,7 +152,7 @@ namespace RipLeech
                                 {
                                     try
                                     {
-                                        VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.HighDefinition4K);
+                                        VideoInfo video = videoInfos.First(info => info.VideoType == VideoType.Mp4 && info.Resolution == 480);
                                         if (!String.IsNullOrEmpty(RipLeech.Properties.Settings.Default.videosavepath))
                                         {
                                             mp4out = RipLeech.Properties.Settings.Default.videosavepath;
@@ -176,7 +176,7 @@ namespace RipLeech
                                     }
                                     catch
                                     {
-                                        VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.Standard360);
+                                        VideoInfo video = videoInfos.First(info => info.VideoType == VideoType.Mp4 && info.Resolution == 360);
                                         if (!String.IsNullOrEmpty(RipLeech.Properties.Settings.Default.videosavepath))
                                         {
                                             mp4out = RipLeech.Properties.Settings.Default.videosavepath;
@@ -208,7 +208,7 @@ namespace RipLeech
                         #region get video quality
                         try
                         {
-                            VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.HighDefinition1080);
+                            VideoInfo video = videoInfos.First(info => info.VideoType == VideoType.Mp4 && info.Resolution == 1080);
                             if (!String.IsNullOrEmpty(RipLeech.Properties.Settings.Default.videosavepath))
                             {
                                 mp4out = RipLeech.Properties.Settings.Default.videosavepath + @"\" + video.Title + ".mp4";
@@ -234,7 +234,7 @@ namespace RipLeech
                         {
                             try
                             {
-                                VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.HighDefinition720);
+                                VideoInfo video = videoInfos.First(info => info.VideoType == VideoType.Mp4 && info.Resolution == 720);
                                 if (!String.IsNullOrEmpty(RipLeech.Properties.Settings.Default.videosavepath))
                                 {
                                     mp4out = RipLeech.Properties.Settings.Default.videosavepath + @"\" + video.Title + ".mp4";
@@ -260,7 +260,7 @@ namespace RipLeech
                             {
                                 try
                                 {
-                                    VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.HighDefinition4K);
+                                    VideoInfo video = videoInfos.First(info => info.VideoType == VideoType.Mp4 && info.Resolution == 480);
                                     if (!String.IsNullOrEmpty(RipLeech.Properties.Settings.Default.videosavepath))
                                     {
                                         mp4out = RipLeech.Properties.Settings.Default.videosavepath + @"\" + video.Title + ".mp4";
@@ -284,7 +284,7 @@ namespace RipLeech
                                 }
                                 catch
                                 {
-                                    VideoInfo video = videoInfos.First(info => info.VideoFormat == VideoFormat.Standard360);
+                                    VideoInfo video = videoInfos.First(info => info.VideoType == VideoType.Mp4 && info.Resolution == 360);
                                     if (!String.IsNullOrEmpty(RipLeech.Properties.Settings.Default.videosavepath))
                                     {
                                         mp4out = RipLeech.Properties.Settings.Default.videosavepath + @"\" + video.Title + ".mp4";
